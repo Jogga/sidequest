@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext'
 export default function Signup() {
   const emailRef = useRef()
   const passwordRef = useRef()
-  const { signup, currentUser } = useAuth()
+  const { signup } = useAuth()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -27,7 +27,6 @@ export default function Signup() {
   return (
     <div>
       <h1>Signup</h1>
-      {currentUser && currentUser.email}
       {error && <p>{ error }</p>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="signup-email">Email</label>
