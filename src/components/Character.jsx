@@ -3,27 +3,13 @@ import { useAuth } from '../contexts/AuthContext'
 import { useNavigate, Link } from 'react-router-dom'
 
 export default function Character() {
-  const [error, setError] = useState("")
-  const { currentUser, logout } = useAuth()
-  const navigate = useNavigate()
-
-  async function handleLogout() {
-    setError("")
-
-    try {
-      await logout()
-      navigate("/login")
-    } catch {
-      setError("Failed to log out")
-    }
-  }
+  const { currentUser } = useAuth()
 
   return (
     <div>
       <h1>Character</h1>
       {currentUser.email}
-      <button onClick={handleLogout}>Log out</button>
-      <p><Link to="/account">Account</Link></p>
+      <p><Link to="/profile">Profile</Link></p>
     </div>
   )
 }

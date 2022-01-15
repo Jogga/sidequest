@@ -33,9 +33,9 @@ export default function Signup() {
       {error && <p>{ error }</p>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="signup-email">Email</label>
-        <input type="email" name="" id="signup-email" ref={emailRef} />
+        <input type="email" name="" id="signup-email" ref={emailRef} required/>
         <label htmlFor="signup-password">Password</label>
-        <input type="password" name="" id="signup-password" ref={passwordRef}/>
+        <input type="password" name="" id="signup-password" ref={passwordRef} required/>
         <button type="submit" disabled={loading}>Sign up</button>
       </form>
       <p>Already have an account? <Link to="/login">Log in</Link></p>

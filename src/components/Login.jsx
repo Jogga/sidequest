@@ -33,9 +33,9 @@ export default function Login() {
       {error && <p>{ error }</p>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="login-email">Email</label>
-        <input type="email" name="" id="login-email" ref={emailRef} />
+        <input type="email" name="" id="login-email" ref={emailRef} required />
         <label htmlFor="login-password">Password</label>
-        <input type="password" name="" id="login-password" ref={passwordRef}/>
+        <input type="password" name="" id="login-password" ref={passwordRef} required/>
         <button type="submit" disabled={loading}>Log in</button>
       </form>
       <p><Link to="/forgot-password">Forgot password?</Link></p>

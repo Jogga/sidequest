@@ -2,7 +2,7 @@ import React from "react"
 import Signup from "./Signup";
 import { AuthProvider } from "../contexts/AuthContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom" 
-import Account from "./Account";
+import Profile from "./Profile";
 import Character from "./Character";
 import Login from "./Login";
 import PrivateRoute from "./PrivateRoute";
@@ -19,9 +19,9 @@ function App() {
           </PrivateRoute>
           }
         />
-        <Route path="/account" element={
+        <Route path="/Profile" element={
           <PrivateRoute>
-            <Account />
+            <Profile />
           </PrivateRoute>
           }
         />
