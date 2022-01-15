@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 export default function Character() {
   const [error, setError] = useState("")
@@ -23,6 +23,7 @@ export default function Character() {
       <h1>Character</h1>
       {currentUser.email}
       <button onClick={handleLogout}>Log out</button>
+      <p><Link to="/account">Account</Link></p>
     </div>
   )
 }

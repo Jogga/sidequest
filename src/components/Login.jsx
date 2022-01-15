@@ -38,6 +38,7 @@ export default function Login() {
         <input type="password" name="" id="login-password" ref={passwordRef}/>
         <button type="submit" disabled={loading}>Log in</button>
       </form>
+      <p><Link to="/forgot-password">Forgot password?</Link></p>
       <p>Already have an account? <Link to="/signup">Sign up</Link></p>
     </div>
   )
