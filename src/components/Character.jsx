@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'
 import { db } from '../firebase'
 import { doc, getDoc } from "firebase/firestore"; 
 
+// TODO: Consider if it makes sense to check for showrunner. 
+// If true, go to a party view, if not true, go to a character view
+
 export default function Character() {
   const { currentUser } = useAuth()
   const [error, setError] = useState("")
