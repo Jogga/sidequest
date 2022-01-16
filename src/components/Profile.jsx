@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import Header from './Header'
 
 
 export default function Profile() {
@@ -48,6 +49,7 @@ export default function Profile() {
   
   return (
     <div>
+      <Header />
       <h1>Profile</h1> 
       {error && <p>{ error } Please log in and try again.</p>}
       {message && <p>{ message }</p>}
@@ -61,7 +63,6 @@ export default function Profile() {
       <div>
         <button onClick={handleLogout}>Log out</button>
       </div>
-      <p><Link to="/">Home</Link></p>
     </div>
   )
 }

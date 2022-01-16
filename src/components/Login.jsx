@@ -1,32 +1,46 @@
 import React, { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { db } from '../firebase'
+import { doc, getDoc } from "firebase/firestore"; 
 
 export default function Login() {
   const emailRef = useRef()
   const passwordRef = useRef()
-  const { login } = useAuth()
+  const { login, currentUser } = useAuth()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const [userDocRef, setUserDocRef] = useState() 
 
   async function handleSubmit(e) {
     e.preventDefault()
 
-    if (passwordRef.current.value === '') {
-      return setError('Enter a password');  
-    }
+    setError("")
+    setLoading(true)
+
     try {
-      setError('')
-      setLoading(true)
-      await login(emailRef.current.value, passwordRef.current.value)
-      navigate("/")
-    } catch {
+      console.log("done")
+      let userCredential = await login(emailRef.current.value, passwordRef.current.value)
+      let data = await getDoc(doc(db, "users", userCredential.user.uid))
+
+      if(data.get("isStoryRunner")) {
+        if(data.get("parties")[0]) {
+          navigate("/parties/" + data.get("parties")[0])
+        }
+      }
+      else {
+        if(data.get("characters")[0]) {
+          navigate("/characters/" + data.get("characters")[0])
+        }
+      }
+    } catch (error) {
+      console.log(error)
       setError('Failed to log in')
     }
-
     setLoading(false)
   }
+
   return (
     <div>
       <h1>Login</h1>
