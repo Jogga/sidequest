@@ -7,11 +7,10 @@ import { doc, getDoc } from "firebase/firestore";
 export default function Login() {
   const emailRef = useRef()
   const passwordRef = useRef()
-  const { login, currentUser } = useAuth()
+  const { login } = useAuth()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
-  const [userDocRef, setUserDocRef] = useState() 
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -20,7 +19,6 @@ export default function Login() {
     setLoading(true)
 
     try {
-      console.log("done")
       let userCredential = await login(emailRef.current.value, passwordRef.current.value)
       let data = await getDoc(doc(db, "users", userCredential.user.uid))
 
