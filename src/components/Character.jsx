@@ -7,19 +7,21 @@ import Attributes from './Attributes';
 
 export default function Character() {
   let params = useParams();
-  let characterRef = doc(db, "characters", params.characterId)
   let [error, setError] = useState("")
   let [character, setCharacter] = useState()
 
-  useEffect( async () => {
-    try {
-      let data = await getDoc(characterRef)
-      setCharacter(data)
-    } catch (error) {
-      console.log(error)
-      setError("Could not load character")
-    }
-  }, [])
+  useEffect(() => {
+    (async () => {
+      console.log("effect")
+      try {
+        let data = await getDoc(doc(db, "characters", params.characterId))
+        setCharacter(data)
+      } catch (error) {
+        console.log(error)
+        setError("Could not load character")
+      }
+    })()
+  }, [params])
 
   return (
     <div>

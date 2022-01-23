@@ -3,24 +3,19 @@ import { useParams } from 'react-router-dom';
 import Header from './Header';
 import { db } from '../firebase'
 import { query, getDocs, collection, where } from "firebase/firestore"; 
+import PartyMembers from './PartyMembers';
 
 export default function Party() {
   let params = useParams();
-  let partyMembersRef = query(collection(db, "characters"));
+  let partyMembersRef = collection(db, "characters")
+  const charactersQuery = query(partyMembersRef, where("party", "==", params.partyId));
+  const [partyMembers, setPartyMembers] = useState()
   let [error, setError] = useState("")
-  let [character, setCharacter] = useState()
-
-  function printDocs(data) {
-    data.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-    });
-  }
 
   useEffect( async () => {
     try {
-      let partyData = await getDocs(partyMembersRef)
-      printDocs(partyData)
+      let partyData = await getDocs(charactersQuery)
+      setPartyMembers(partyData)
     } catch (error) {
       console.log(error)
       setError("Could not load character")
@@ -31,6 +26,9 @@ export default function Party() {
     <div>
       <Header />
       <h1>Party</h1>
+      { partyMembers &&
+        <PartyMembers partyMembers={partyMembers} />
+      }
     </div>
   )
 }

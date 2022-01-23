@@ -11,54 +11,58 @@ import ForgotPassword from "./ForgotPassword";
 import Party from "./Party";
 import Parties from "./Parties";
 import Home from "./Home";
+import GlobalStyle from "../globalStyles";
 
 function App() {
   return (
-  <Router>
-    <AuthProvider>
-      <Routes>
-        <Route exact path="/" element={
-          <PrivateRoute>
-            <Home />
-          </PrivateRoute>
-          }
-        />
-        <Route path="/profile" element={
-          <PrivateRoute>
-            <Profile />
-          </PrivateRoute>
-          }
-        />
-        <Route path="/parties" element={
-          <PrivateRoute>
-            <Parties />
-          </PrivateRoute>
-          }
-        />
-        <Route path="parties/:partyId" element={
-          <PrivateRoute>
-            <Party />
-          </PrivateRoute>
-          }
-        />
-        <Route path="/characters" element={
-          <PrivateRoute>
-            <Characters />
-          </PrivateRoute>
-          }
-        />
-        <Route path="characters/:characterId" element={
-          <PrivateRoute>
-            <Character />
-          </PrivateRoute>
-          }
-        />
-        <Route path="/signup" element={<Signup />}/>
-        <Route path="/login" element={<Login />}/>
-        <Route path="/forgot-password" element={<ForgotPassword />}/>
-      </Routes>
-    </AuthProvider>
-  </Router>
+    <>
+    <GlobalStyle />
+    <Router>
+      <AuthProvider>
+        <Routes>
+          <Route exact path="/" element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+            }
+          />
+          <Route path="/profile" element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+            }
+          />
+          <Route path="/parties" element={
+            <PrivateRoute>
+              <Parties />
+            </PrivateRoute>
+            }
+          />
+          <Route path="parties/:partyId" element={
+            <PrivateRoute>
+              <Party />
+            </PrivateRoute>
+            }
+          />
+          <Route path="/characters" element={
+            <PrivateRoute>
+              <Characters />
+            </PrivateRoute>
+            }
+          />
+          <Route path="characters/:characterId" element={
+            <PrivateRoute>
+              <Character />
+            </PrivateRoute>
+            }
+          />
+          <Route path="/signup" element={<Signup />}/>
+          <Route path="/login" element={<Login />}/>
+          <Route path="/forgot-password" element={<ForgotPassword />}/>
+        </Routes>
+      </AuthProvider>
+    </Router>
+  </>
   )
 }
 
