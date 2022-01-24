@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
 
 const EnergyContainer = styled.div`
@@ -51,6 +51,8 @@ const ValueInputContainer = styled.div`
 `
 
 export default function Energy(props) {
+  const valueInputRef = useRef()
+
   function handleEditButtonClick() {
     props.onEdit(props.fieldId, true)
   }
@@ -58,21 +60,24 @@ export default function Energy(props) {
   function handleCancelButtonClick() {
     props.onEdit(props.fieldId, false)
   }
+  function handleApplyButtonClick() {
+    props.onUpdate(props.fieldId, valueInputRef.current.value)
+  }
   return (
     <EnergyContainer>
       <EnergyTitle>{props.label}</EnergyTitle>
       {!props.editing        
         ? <>
             <Value>
-              <CurrentValue>{props.energy["current"]}</CurrentValue>
+              <CurrentValue>{props.currentEnergy}</CurrentValue>
               <MaxValue> / {props.energy["maximum"]}</MaxValue>
             </Value>
             <button onClick={handleEditButtonClick}>Edit</button>
           </>
         : <ValueInputContainer>
-            <ValueInput type="number" min="0" defaultValue={props.energy["current"]} max={props.energy["maximum"]} />
+            <ValueInput type="number" min="0" defaultValue={props.currentEnergy} max={props.energy["maximum"]} ref={valueInputRef}/>
             <button onClick={handleCancelButtonClick}>Cancel</button>
-            <button>Apply</button>
+            <button onClick={handleApplyButtonClick}>Apply</button>
           </ValueInputContainer>   
       }
     </EnergyContainer>
