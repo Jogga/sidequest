@@ -13,7 +13,6 @@ export default function Home() {
         {currentUser.email}
       </p>
       <p>
-        {currentUser.uid}
       </p>
     </div>
   )
