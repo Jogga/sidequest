@@ -9,5 +9,15 @@ const GlobalStyle = createGlobalStyle`
     line-height: 20px;
   }
 `;
- 
+
+export const colors = {
+  Foreground100: `#111111`,
+  Background0: `#ffffff`,
+  Background5: `#efefef`,
+  Background10: `#dddddd`,
+  Background20: `#cccccc`,
+  Active10: `#e3e4ff`,
+  Active80: `#1d25a6`
+}
+
 export default GlobalStyle;
