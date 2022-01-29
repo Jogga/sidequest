@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import { db } from '../firebase'
 import { doc, getDoc, updateDoc } from "firebase/firestore"; 
@@ -21,7 +21,8 @@ energyTypes.karma = {
 }
 
 export default function Character() {
-  let params = useParams();
+  let params = useParams()
+  let navigate = useNavigate()
   let [error, setError] = useState("")
   let [character, setCharacter] = useState()
   let [lifePoints, setLifePoints] = useState()
@@ -98,6 +99,7 @@ export default function Character() {
   return (
     <div>
       <Header />
+      <button onClick={() => navigate(-1)}>go back</button>
       {error && <p>{ error }</p>}
       <h1>{ character && character.get("name") }</h1>
       { character && 

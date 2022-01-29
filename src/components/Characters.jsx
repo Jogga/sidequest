@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import { db } from '../firebase'
 import { Link } from 'react-router-dom';
-import { getDoc, doc, query, collection, getDocs, where } from "firebase/firestore"; 
+import { query, collection, getDocs, where } from "firebase/firestore"; 
 import { useAuth } from '../contexts/AuthContext';
+import CharacterList from './CharacterList';
 
 export default function Characters() {
   const { currentUser } = useAuth()
@@ -15,30 +16,20 @@ export default function Characters() {
     (async () => {
       setLoading(true)
       try {
-        
-        // TODO: Only the user’s own characters appear here. Full party for story runner is visible in parties.
-        // Party is also visible for non-story-runners, but they can not open the other characters.
-
-        const userDoc = await getDoc(doc(db, "users", currentUser.uid))
-        let q
-        if(userDoc.get("isStoryRunner")) {
-          const parties = userDoc.get("parties")
-          q = query(collection(db, "characters"), where("party", "==", parties[0]))
-        } else {
-          q = query(collection(db, "characters"), where("user", "==", currentUser.uid))
-        }
-        const querySnapshot = await getDocs(q);
-        let chars = []
-        querySnapshot.forEach((doc) => {
+        const charactersQuery = query(collection(db, "characters"), where("player", "==", currentUser.uid))
+        const charactersCollection = await getDocs(charactersQuery)
+        let cs = []
+        charactersCollection.forEach((doc) => {
           let character = {}
           character.name = doc.get("name")
+          character.player = doc.get("player")
           character.id = doc.id
           character.life = {}
           character.life.maximum = doc.get("lifePoints.maximum")
           character.life.current = doc.get("lifePoints.current")
-          chars.push(character)
-        });
-        setCharacters(chars)
+          cs.push(character)
+        })
+        setCharacters(cs)
       } catch (error) {
         console.log(error)
         setError("Could not load character")
@@ -61,9 +52,9 @@ export default function Characters() {
         error &&
         <p>Sorry, an error occurred. Please reload the page.</p>
       }
-      <ul>
-        {characterListItems.length > 0 && characterListItems}
-      </ul>
+      { characters &&
+        <CharacterList characters={characters} unlocked={true} />
+      }
     </div>
   )
 }
