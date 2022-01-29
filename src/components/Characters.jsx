@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import { db } from '../firebase'
-import { Link } from 'react-router-dom';
 import { query, collection, getDocs, where } from "firebase/firestore"; 
 import { useAuth } from '../contexts/AuthContext';
 import CharacterList from './CharacterList';
+import Page from './Page';
 
 export default function Characters() {
   const { currentUser } = useAuth()
@@ -39,22 +39,22 @@ export default function Characters() {
     })()
   }, [currentUser])
 
-  let characterListItems = characters.map(character => <li key={character.id}><Link to={character.id}>{character.name}</Link></li>)
-  
   return (
-    <div>
+    <>
       <Header />
-      <h1>Characters</h1>
-      { loading && 
-        <p>Loading…</p>
-      }
-      {
-        error &&
-        <p>Sorry, an error occurred. Please reload the page.</p>
-      }
-      { characters &&
-        <CharacterList characters={characters} unlocked={true} />
-      }
-    </div>
+      <Page>
+        <h1>Characters</h1>
+        { loading && 
+          <p>Loading…</p>
+        }
+        {
+          error &&
+          <p>Sorry, an error occurred. Please reload the page.</p>
+        }
+        { characters &&
+          <CharacterList characters={characters} unlocked={true} />
+        }
+      </Page>
+    </>
   )
 }

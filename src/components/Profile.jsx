@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import Header from './Header'
+import Page from './Page'
 
 
 export default function Profile() {
@@ -48,21 +49,23 @@ export default function Profile() {
   }
   
   return (
-    <div>
+    <>
       <Header />
-      <h1>Profile</h1> 
-      {error && <p>{ error } Please log in and try again.</p>}
-      {message && <p>{ message }</p>}
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="profile-email">Email</label>
-        <input type="email" name="" id="profile-email" ref={emailRef} defaultValue={ currentUser.email }/>
-        <label htmlFor="profile-password">Password</label>
-        <input type="password" name="" id="profile-password" ref={passwordRef}/>
-        <button type="submit" disabled={loading}>Update profile</button>
-      </form>
-      <div>
-        <button onClick={handleLogout}>Log out</button>
-      </div>
-    </div>
+      <Page>
+        <h1>Profile</h1> 
+        {error && <p>{ error } Please log in and try again.</p>}
+        {message && <p>{ message }</p>}
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="profile-email">Email</label>
+          <input type="email" name="" id="profile-email" ref={emailRef} defaultValue={ currentUser.email }/>
+          <label htmlFor="profile-password">Password</label>
+          <input type="password" name="" id="profile-password" ref={passwordRef}/>
+          <button type="submit" disabled={loading}>Update profile</button>
+        </form>
+        <div>
+          <button onClick={handleLogout}>Log out</button>
+        </div>
+      </Page>
+    </>
   )
 }

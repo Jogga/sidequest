@@ -33,12 +33,12 @@ const StyledNavLink = styled(NavLink)`
   border-top: 2px solid ${ colors.Background0 };
   border-bottom: 2px solid ${ colors.Background0 };
   &:hover {
-    background-color: ${colors.Active05};
-    border-color: ${colors.Active05};
+    background-color: ${colors.Primary05};
+    border-color: ${colors.Primary05};
   }
   &.active {
-    color: ${ colors.Active80 };
-    border-bottom-color: ${ colors.Active80 };
+    color: ${ colors.Primary80 };
+    border-bottom-color: ${ colors.Primary80 };
   }
 `
 
@@ -47,7 +47,7 @@ const HomeLink = styled(NavLink)`
   margin-right: 8px;
   border-radius: 22px;
   &:hover {
-    background-color: ${ colors.Active05 }
+    background-color: ${ colors.Primary05 }
   }
   display: block;
   svg {

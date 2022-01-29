@@ -3,12 +3,11 @@ import { useParams } from 'react-router-dom'
 import Header from './Header'
 import { db } from '../firebase'
 import { query, getDoc, getDocs, doc, collection, where } from "firebase/firestore"
-import { useNavigate } from 'react-router-dom'
 import CharacterList from './CharacterList'
+import Page from './Page'
 
 export default function Party() {
   let params = useParams()
-  let navigate = useNavigate()
   const [party, setParty] = useState()
   let [error, setError] = useState("")
   let [loading, setLoading] = useState(false)
@@ -58,16 +57,17 @@ export default function Party() {
 
 
   return (
-    <div>
+    <>
       <Header />
-      <button onClick={() => navigate(-1)}>go back</button>
-      { party && 
-        <>
-          <h1>{party.name}</h1>
-          <h2>Hosted by {party.host.name}</h2>
-          <CharacterList characters={party.characters} host={party.host.id}/>
-        </>
-      }
-    </div>
+      <Page backNav={true}>
+        { party && 
+          <>
+            <h1>{party.name}</h1>
+            <h2>Hosted by {party.host.name}</h2>
+            <CharacterList characters={party.characters} host={party.host.id}/>
+          </>
+        }
+      </Page>
+    </>
   )
 }

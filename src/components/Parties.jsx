@@ -4,6 +4,7 @@ import { db } from '../firebase'
 import { query, collection, getDocs, where } from "firebase/firestore"; 
 import { useAuth } from '../contexts/AuthContext';
 import PartyList from './PartyList';
+import Page from './Page';
 
 export default function Parties() {
   const { currentUser } = useAuth()
@@ -48,20 +49,22 @@ export default function Parties() {
   }, [currentUser])
 
   return (
-    <div>
+    <>
       <Header />
-      { error && 
-        <p>{error}</p>
-      }
-      { loading &&
-        <p>Loading…</p>
-      }
-      { !loading &&
-        <>
-          <PartyList title="Hosting" parties={hostingParties} />
-          <PartyList title="Playing" parties={playingParties} />
-        </>
-      }
-    </div>
+      <Page>
+        { error && 
+          <p>{error}</p>
+        }
+        { loading &&
+          <p>Loading…</p>
+        }
+        { !loading &&
+          <>
+            <PartyList title="Hosting" parties={hostingParties} />
+            <PartyList title="Playing" parties={playingParties} />
+          </>
+        }
+      </Page>
+    </>
   )
 }
