@@ -62,7 +62,7 @@ export default function Characters() {
         <p>Sorry, an error occurred. Please reload the page.</p>
       }
       <ul>
-        {characterListItems}
+        {characterListItems.length > 0 && characterListItems}
       </ul>
     </div>
   )

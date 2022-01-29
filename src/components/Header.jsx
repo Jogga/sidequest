@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink, useMatch, useResolvedPath } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { useAuth } from '../contexts/AuthContext'
 import { colors } from '../globalStyles'

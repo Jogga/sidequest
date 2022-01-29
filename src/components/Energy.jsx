@@ -16,12 +16,6 @@ const EnergyTitle = styled.h4`
   padding: 6px 0;
 `
 
-const Label = styled.p`
-  font-size: 12px;
-  line-height: 16px;
-  margin: 0;
-`
-
 const Value = styled.p`
   margin: 0;
   padding: 6px;
