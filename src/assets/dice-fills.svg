@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>Artboard Copy 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M14.4961389,0.283507965 L27.4961389,7.71207939 C27.8077139,7.89012225 28,8.22146569 28,8.58032254 L28,23.4196775 C28,23.7785343 27.8077139,24.1098778 27.4961389,24.2879206 L14.4961389,31.716492 C14.1887063,31.8921678 13.8112937,31.8921678 13.5038611,31.716492 L0.503861062,24.2879206 C0.192286064,24.1098778 4.3947289e-17,23.7785343 0,23.4196775 L0,8.58032254 C-4.3947289e-17,8.22146569 0.192286064,7.89012225 0.503861062,7.71207939 L13.5038611,0.283507965 C13.8112937,0.107832154 14.1887063,0.107832154 14.4961389,0.283507965 Z" id="path-1"></path>
+    </defs>
+    <g id="Artboard-Copy-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(4.000000, 2.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Polygon" fill="#5C64DB" xlink:href="#path-1"></use>
+            <polygon id="Path-2" fill="#7A81EA" mask="url(#mask-2)" points="14 7 5 22 23 22"></polygon>
+            <polygon id="Path-12" fill="#1D25A6" mask="url(#mask-2)" points="0 24 5 22 0 8"></polygon>
+            <polygon id="Path-13" fill="#3941C5" mask="url(#mask-2)" points="0 24 5 22 14 32"></polygon>
+            <polygon id="Path-14" fill="#5C64DB" mask="url(#mask-2)" points="5 22 23 22 14 32"></polygon>
+            <polygon id="Path-17" fill="#5C64DB" mask="url(#mask-2)" points="0 8 14 7 5 22"></polygon>
+            <polygon id="Path-19" fill="#9A9FF3" mask="url(#mask-2)" points="0 8 14 0 14 7"></polygon>
+            <polygon id="Path-20" fill="#C3C6FC" mask="url(#mask-2)" points="14 1.42108547e-14 14 7 28 8"></polygon>
+            <polygon id="Path-15" fill="#3941C5" mask="url(#mask-2)" points="23 22 28 24 14 32"></polygon>
+            <polygon id="Path-16" fill="#9A9FF3" mask="url(#mask-2)" points="23 22 28 8 28 24"></polygon>
+            <polygon id="Path-18" fill="#AAAFF9" mask="url(#mask-2)" points="14 7 28 8 23 22"></polygon>
+        </g>
+    </g>
+</svg>

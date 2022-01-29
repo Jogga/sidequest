@@ -16,6 +16,7 @@ export const colors = {
   Background5: `#efefef`,
   Background10: `#dddddd`,
   Background20: `#cccccc`,
+  Active05: `#f1f2ff`,
   Active10: `#e3e4ff`,
   Active80: `#1d25a6`
 }
