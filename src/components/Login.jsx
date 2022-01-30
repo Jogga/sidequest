@@ -2,7 +2,28 @@ import React, { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { db } from '../firebase'
-import { doc, getDoc } from "firebase/firestore"; 
+import { doc, getDoc } from "firebase/firestore"
+import styled from 'styled-components'
+import { PrimaryButton } from './Button'
+import { TextInput, TextInputField } from './Input'
+import { Card } from './Card'
+import { ReactComponent as Dice } from '../assets/dice-fills.svg'
+import { SingInForm } from './SignInForm'
+
+const Container = styled.div`
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+`
+
+const LoginCard = styled(Card)`
+  min-width: 360px;
+  box-sizing: border-box;
+  padding: 16px 24px;
+`
 
 export default function Login() {
   const emailRef = useRef()
@@ -40,18 +61,25 @@ export default function Login() {
   }
 
   return (
-    <div>
-      <h1>Login</h1>
-      {error && <p>{ error }</p>}
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="login-email">Email</label>
-        <input type="email" name="" id="login-email" ref={emailRef} required />
-        <label htmlFor="login-password">Password</label>
-        <input type="password" name="" id="login-password" ref={passwordRef} required/>
-        <button type="submit" disabled={loading}>Log in</button>
-      </form>
-      <p><Link to="/forgot-password">Forgot password?</Link></p>
+    <Container>
+      <Dice />
+      <LoginCard>
+        <h1>Login</h1>
+        {error && <p>{ error }</p>}
+        <SingInForm onSubmit={handleSubmit}>
+          <TextInputField>
+            <label htmlFor="login-email">Email</label>
+            <TextInput type="email" name="" id="login-email" ref={emailRef} required />
+          </TextInputField>
+          <TextInputField>
+            <label htmlFor="login-password">Password</label>
+            <TextInput type="password" name="" id="login-password" ref={passwordRef} required/>
+          </TextInputField>
+          <PrimaryButton type="submit" disabled={loading}>Log in</PrimaryButton>
+        </SingInForm>
+        <p><Link to="/forgot-password">Forgot password?</Link></p>
+      </LoginCard>
       <p>Already have an account? <Link to="/signup">Sign up</Link></p>
-    </div>
+    </Container>
   )
 }

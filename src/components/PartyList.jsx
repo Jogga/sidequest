@@ -3,19 +3,7 @@ import { Link } from "react-router-dom"
 import styled from "styled-components"
 import { colors } from "../globalStyles"
 import { ReactComponent as IllustrationEmpty } from "../assets/illustration-empty.svg" 
-
-const PrimaryButton = styled(Link)`
-  background-color: ${ colors.Primary80 };
-  color: ${ colors.Background0 };
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 20px;
-  text-decoration: none;
-  border-radius: 6px;
-  &:hover{
-    background-color: ${ colors.Primary90 };
-  }
-`
+import { PrimaryButton } from "./Button"
 
 const StyledPartyListItem = styled.li`
 

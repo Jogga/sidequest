@@ -23,6 +23,10 @@ const GlobalStyle = createGlobalStyle`
     color: ${ colors.Foreground100 };
     background-color: ${ colors.Background5 };
   }
+  a {
+    text-decoration: none;
+    color: ${ colors.Primary80 };
+  }
 `;
 
 export default GlobalStyle;
