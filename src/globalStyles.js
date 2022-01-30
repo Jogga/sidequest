@@ -2,6 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 export const colors = {
   Foreground100: `#0A0A14`,
+  Foreground30: `#C3C3CE`,
   Background0: `#ffffff`,
   Background5: `#F9FAFF`,
   Background10: `#dddddd`,

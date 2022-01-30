@@ -28,7 +28,7 @@ export default function Character() {
   let [lifePoints, setLifePoints] = useState()
   let [astralPoints, setAstralPoints] = useState()
   let [karmaPoints, setKarmaPoints] = useState()
-  let [characterRef, setCharacterRef] = useState(doc(db, "characters", params.characterId))
+  const characterRef = doc(db, "characters", params.characterId)
   let [editingValue, setEditingValue] = useState()
 
   function manageEdit(fieldId, toEdit) {
@@ -37,15 +37,6 @@ export default function Character() {
     } else if(editingValue === fieldId) {
       setEditingValue("")
     }
-  }
-
-  function parseCharacterDoc(doc) {
-    let character = {}
-    character.name = doc.get("name")
-    character.lifePoints = {}
-    // TODO character.lifePoints.current =
-    character.astralPoints = {}
-    character.karmaPoints = {}
   }
 
   async function updateEnergyField(fieldId, newValue) {
@@ -94,7 +85,7 @@ export default function Character() {
         setError("Could not load character")
       }
     })()
-  }, [params, characterRef])
+  }, [])
 
   return (
     <>

@@ -16,6 +16,7 @@ export default function Parties() {
   useEffect(() => {
     (async () => {
       setLoading(true)
+      console.log("effect")
       try {
         const hostingQuery = query(collection(db, "parties"), where("host", "==", currentUser.uid))
         const playingQuery = query(collection(db, "parties"), where("players", "array-contains", currentUser.uid))
@@ -29,6 +30,7 @@ export default function Parties() {
           docs.forEach((doc) => {
             let party = {}
             party.name = doc.get("name")
+            party.host = doc.get("host")
             party.id = doc.id
             party.players = doc.get("players").length
             array.push(party)
@@ -46,7 +48,7 @@ export default function Parties() {
         setLoading(false)
       }
     })()
-  }, [currentUser])
+  }, [])
 
   return (
     <>
@@ -58,10 +60,14 @@ export default function Parties() {
         { loading &&
           <p>Loading…</p>
         }
-        { !loading &&
-          <>
-            <PartyList title="Hosting" parties={hostingParties} />
+        { hostingParties.length > playingParties.length 
+          ? <>
+              <PartyList title="Hosting" parties={hostingParties} />
+              <PartyList title="Playing" parties={playingParties} />
+            </>
+          : <>
             <PartyList title="Playing" parties={playingParties} />
+            <PartyList title="Hosting" parties={hostingParties} />
           </>
         }
       </Page>

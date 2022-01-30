@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="icon-profile" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(5.000000, 12.000000)" stroke="#0A0A14" stroke-linejoin="round" stroke-width="1.5">
+            <path d="M7,0.25 C9.79636748,0.25 11.8889646,1.95077846 13.2777912,5.35233537 L13.2777986,5.35233236 C13.6953262,6.37495363 13.2048008,7.54242491 12.1821795,7.95995245 C12.0621666,8.00895269 11.9376741,8.04616896 11.8104588,8.07107608 C10.3499471,8.35702536 8.74646089,8.5 7,8.5 C5.25353734,8.5 3.6500496,8.35702507 2.1895368,8.07107521 L2.18953727,8.0710728 C1.10554982,7.85884182 0.398851565,6.80804917 0.611082542,5.72406172 C0.635989453,5.59684759 0.673205339,5.47235626 0.722205025,5.35234451 C2.11103169,1.9507815 4.20363002,0.25 7,0.25 Z" id="Rectangle"></path>
+        </g>
+        <circle id="Oval" stroke="#0A0A14" stroke-width="1.5" cx="12" cy="6.5" r="3.5"></circle>
+        <ellipse id="Oval" stroke="#0A0A14" stroke-width="1.5" cx="12" cy="13.75" rx="2" ry="1.5"></ellipse>
+    </g>
+</svg>

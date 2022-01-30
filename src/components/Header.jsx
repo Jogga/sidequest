@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { useAuth } from '../contexts/AuthContext'
 import { colors } from '../globalStyles'
-import { ReactComponent as Dice } from '../assets/dice-fills.svg' 
+import { ReactComponent as Dice } from '../assets/dice-fills.svg'
+import { ReactComponent as ProfileIcon } from '../assets/icon-profile.svg' 
 
 const HeaderBar = styled.nav`
   padding: 0px 24px;
@@ -55,6 +56,27 @@ const HomeLink = styled(NavLink)`
   }
 `
 
+const ProfileLink = styled(NavLink)`
+  display: flex;
+  gap: 4px;
+  text-decoration: none;
+  color: ${ colors.Foreground100 };
+  padding: 12px 12px;
+  border-top: 2px solid ${ colors.Background0 };
+  border-bottom: 2px solid ${ colors.Background0 };
+  &:hover {
+    background-color: ${colors.Primary05};
+    border-color: ${colors.Primary05};
+  }
+  &.active {
+    color: ${ colors.Primary80 };
+    border-bottom-color: ${ colors.Primary80 };
+    svg {
+      stroke: ${ colors.Primary80 };
+    }
+  }
+`
+
 
 export default function Header() {
   const { currentUser } = useAuth()
@@ -67,7 +89,10 @@ export default function Header() {
           <StyledNavLink to="/parties"> Parties</StyledNavLink>
           <StyledNavLink to="/characters"> Characters</StyledNavLink>
       </MainNav>
-      <StyledNavLink to="/profile">{ currentUser && currentUser.email }</StyledNavLink> 
+      <ProfileLink to="/profile">
+        <ProfileIcon />
+        { currentUser && currentUser.email }
+      </ProfileLink> 
     </HeaderBar>
   )
 }

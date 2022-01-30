@@ -14,6 +14,7 @@ export default function Characters() {
 
   useEffect(() => {
     (async () => {
+      console.log("effect")
       setLoading(true)
       try {
         const charactersQuery = query(collection(db, "characters"), where("player", "==", currentUser.uid))
@@ -37,13 +38,12 @@ export default function Characters() {
         setLoading(false)
       }
     })()
-  }, [currentUser])
+  }, [])
 
   return (
     <>
       <Header />
       <Page>
-        <h1>Characters</h1>
         { loading && 
           <p>Loading…</p>
         }
@@ -51,8 +51,9 @@ export default function Characters() {
           error &&
           <p>Sorry, an error occurred. Please reload the page.</p>
         }
-        { characters &&
-          <CharacterList characters={characters} unlocked={true} />
+        { characters
+          ? <CharacterList characters={characters} unlocked={true} />
+          : <p>You do not have any playable characters</p>
         }
       </Page>
     </>

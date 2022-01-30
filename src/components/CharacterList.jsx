@@ -56,13 +56,13 @@ const PlayedByYouBadge = styled.span`
 function CharacterListItem(props) {
   const character = props.character
   const userId = props.userId
-  const unlocked = props.host
+  const unlocked = props.unlocked
 
   let button;
   if(character.player === userId || unlocked) {
     button = <OpenButton to={character.id}>View</OpenButton>
   } else {
-    button = <IconLock style={"padding-left:8px; padding-right:8px;"}/>
+    button = <IconLock />
   }
 
   return(

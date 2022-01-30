@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="56px" height="48px" viewBox="0 0 56 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>empty</title>
+    <desc>Created with Sketch.</desc>
+    <g id="empty" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M2,45 C8.70054145,39.4326706 17.8775867,36 28.0002279,36 C38.1226396,36 47.2994982,39.432515 54,44.9996214" id="Path" fill="#C3C3CE"></path>
+        <g id="Group" transform="translate(28.500000, 24.500000) rotate(10.000000) translate(-28.500000, -24.500000) translate(22.000000, 4.000000)">
+            <path d="M4,13 L9,13 L9.82835992,30.3955583 C9.94066353,32.7539341 9.40857095,35.0983682 8.28919843,37.1772029 L6.5,40.5 L6.5,40.5 L4.71080157,37.1772029 C3.59142905,35.0983682 3.05933647,32.7539341 3.17164008,30.3955583 L4,13 L4,13 Z" id="Rectangle-Copy-20" stroke="#C3C3CE" stroke-width="1.5" fill="#FFFFFF" stroke-linejoin="round"></path>
+            <line x1="-1.52655666e-16" y1="13" x2="13" y2="13" id="Line-Copy" stroke="#C3C3CE" stroke-width="1.5" stroke-linecap="round"></line>
+            <path d="M5.5,4 L7.5,4 C7.76466711,6.84209715 7.77743688,9.70203431 7.53816003,12.5463816 L7.5,13 L7.5,13 L5.5,13 L5.39360843,10.98429 C5.29744219,9.16231068 5.30311307,7.33638228 5.41059457,5.51503547 L5.5,4 L5.5,4 Z" id="Rectangle-Copy-21" fill="#C3C3CE"></path>
+            <circle id="Oval-Copy" stroke="#C3C3CE" stroke-width="1.5" cx="6.5" cy="2" r="2"></circle>
+            <path d="M5.5,13 L7.5,13 L6.97434165,14.5769751 C6.88701776,14.8389467 6.60385778,14.9805267 6.34188612,14.8932028 C6.19258362,14.8434353 6.07542585,14.7262776 6.02565835,14.5769751 L5.5,13 L5.5,13 Z" id="Rectangle-Copy-22" fill="#C3C3CE"></path>
+        </g>
+        <rect id="Rectangle" fill="#C3C3CE" x="21" y="38" width="11" height="6"></rect>
+    </g>
+</svg>
