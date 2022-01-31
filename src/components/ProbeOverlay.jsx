@@ -1,7 +1,8 @@
-import React, { useRef } from "react"
+import React, { useRef, useState } from "react"
 import styled from "styled-components"
 import { colors } from "../globalStyles"
 import { PrimaryButton } from "./Button"
+import { d20 } from "../services/dice"
 
 const BackDrop = styled.div`
   position: fixed;
@@ -31,11 +32,28 @@ export default function ProbeOverlay(props) {
   const attr1 = props.probe.attr1
   const attr2 = props.probe.attr2
   const points = props.probe.points
-  
+  const [result, setResult] = useState()
   const difficultyRef = useRef()
 
   function handleRoll() {
-    console.log(`Roll with ${ difficultyRef.current.value }`)
+    let pointsLeft = points
+    const roll0 = d20() 
+    const roll1 = d20() 
+    const roll2 = d20()
+    if(roll0 > attr0.value) {
+      pointsLeft -= roll0 - attr0.value
+    }
+    if(roll1 > attr1.value) {
+      pointsLeft -= roll1 - attr1.value
+    } 
+    if(roll2 > attr2.value) {
+      pointsLeft -= roll2 - attr2.value
+    }
+    if(pointsLeft >= 0) {
+      setResult(`Success! First: ${roll0}, Second: ${roll1}, Third: ${roll2}. Points left: ${pointsLeft}`)
+    } else {
+      setResult(`Failed! First: ${roll0}, Second: ${roll1}, Third: ${roll2}.`)
+    }
   }
 
   function handleClose() {
@@ -51,6 +69,9 @@ export default function ProbeOverlay(props) {
         <p><span>{attr1.name}</span> <span>{attr1.value}</span></p>
         <p><span>{attr2.name}</span> <span>{attr2.value}</span></p>
         <p>Fertigkeitswert: {points}</p>
+        { result &&
+          <p><strong>{result}</strong></p>
+        }
         <PrimaryButton onClick={handleRoll}>Roll the dice</PrimaryButton>
         <button onClick={handleClose}>Close</button>
       </Modal>
