@@ -5,7 +5,7 @@ export const colors = {
   Foreground30: `#C3C3CE`,
   Background0: `#ffffff`,
   Background5: `#F9FAFF`,
-  Background10: `#dddddd`,
+  Background10: `#F0F1F8`,
   Background20: `#cccccc`,
   Primary05: `#f1f2ff`,
   Primary10: `#e3e4ff`,

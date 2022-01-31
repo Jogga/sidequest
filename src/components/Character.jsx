@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
-import Header from './Header';
+import { useParams } from 'react-router-dom'
+import Header from './Header'
 import { db } from '../firebase'
-import { doc, getDoc, updateDoc } from "firebase/firestore"; 
-import Attributes from './Attributes';
-import Energy from './Energy';
-import Page from './Page';
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import Attributes from './Attributes'
+import Energy from './Energy'
+import Page from './Page'
+import { skills } from '../services/skills'
+import Skill from './Skill'
+import ProbeOverlay from './ProbeOverlay';
 
 const energyTypes = {}
 energyTypes.life = {
@@ -28,8 +31,11 @@ export default function Character() {
   let [lifePoints, setLifePoints] = useState()
   let [astralPoints, setAstralPoints] = useState()
   let [karmaPoints, setKarmaPoints] = useState()
+  let [attributes, setAttributes] = useState()
+  let [characterSkills, setCharacterSkills] = useState([])
   const characterRef = doc(db, "characters", params.characterId)
   let [editingValue, setEditingValue] = useState()
+  let [probe, setProbe] = useState()
 
   function manageEdit(fieldId, toEdit) {
     if (toEdit) {
@@ -80,6 +86,13 @@ export default function Character() {
         
         let karma = data.get(energyTypes.karma.key)
         setKarmaPoints(karma["current"])
+
+        let skillsData = data.get("skills")
+        setCharacterSkills(skillsData)
+
+        let attributesData = data.get("attributes")
+        setAttributes(attributesData)
+
       } catch (error) {
         console.log(error)
         setError("Could not load character")
@@ -87,8 +100,43 @@ export default function Character() {
     })()
   }, [])
 
+  function probeSkill(name, attr0, attr1, attr2, points) {
+    setProbe(
+      { name: name, 
+        attr0: { name: attr0, value: attributes[attr0]},
+        attr1: { name: attr1, value: attributes[attr1]},
+        attr2: { name: attr2, value: attributes[attr2]},
+        points: points
+      }
+    )
+  }
+
+  function closeProbeOverlay() {
+    setProbe()
+  }
+
+  let CategoryList = skills.map(category => {
+    let skillList = category.list.map(skill => {
+      let fw = 0
+      if (characterSkills[skill.name]) {
+        fw = characterSkills[skill.name]
+      }
+      return <Skill key={skill.name} skill={skill} skillPoints={fw} probeHandler={probeSkill}/>
+    })
+    return (
+      <div>
+        <h3>{category.name}</h3>
+        <ul>
+          {skillList}
+        </ul>
+      </div>
+    )
+  })
   return (
     <>
+      { probe &&
+        <ProbeOverlay probe={probe} closeHandler={closeProbeOverlay}/>
+      }
       <Header />
       <Page backNav={true}>
       {error && <p>{ error }</p>}
@@ -122,6 +170,7 @@ export default function Character() {
             onUpdate={updateEnergyField}/>
         </>
       }
+      {CategoryList}
       </Page>
     </>
   )
