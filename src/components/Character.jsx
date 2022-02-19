@@ -8,7 +8,7 @@ import Energy from './Energy'
 import Page from './Page'
 import { skills } from '../services/skills'
 import Skill from './Skill'
-import ProbeOverlay from './ProbeOverlay';
+import SkillProbeOverlay from './ProbeOverlay';
 
 const energyTypes = {}
 energyTypes.life = {
@@ -35,7 +35,7 @@ export default function Character() {
   let [characterSkills, setCharacterSkills] = useState([])
   const characterRef = doc(db, "characters", params.characterId)
   let [editingValue, setEditingValue] = useState()
-  let [probe, setProbe] = useState()
+  let [skillProbe, setSkillProbe] = useState()
 
   function manageEdit(fieldId, toEdit) {
     if (toEdit) {
@@ -100,19 +100,12 @@ export default function Character() {
     })()
   }, [])
 
-  function probeSkill(name, attr0, attr1, attr2, points) {
-    setProbe(
-      { name: name, 
-        attr0: { name: attr0, value: attributes[attr0]},
-        attr1: { name: attr1, value: attributes[attr1]},
-        attr2: { name: attr2, value: attributes[attr2]},
-        points: points
-      }
-    )
+  function probeSkill(id, points) {
+    setSkillProbe({ id: id, points: points })
   }
 
   function closeProbeOverlay() {
-    setProbe()
+    setSkillProbe()
   }
 
   let CategoryList = skills.map(category => {
@@ -124,7 +117,7 @@ export default function Character() {
       return <Skill key={skill.name} skill={skill} skillPoints={fw} probeHandler={probeSkill}/>
     })
     return (
-      <div>
+      <div key={category.name}>
         <h3>{category.name}</h3>
         <ul>
           {skillList}
@@ -134,8 +127,8 @@ export default function Character() {
   })
   return (
     <>
-      { probe &&
-        <ProbeOverlay probe={probe} closeHandler={closeProbeOverlay}/>
+      { skillProbe &&
+        <SkillProbeOverlay probe={skillProbe} attibutes={attributes} closeHandler={closeProbeOverlay}/>
       }
       <Header />
       <Page backNav={true}>

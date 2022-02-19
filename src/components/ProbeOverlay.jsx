@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react"
 import styled from "styled-components"
 import { colors } from "../globalStyles"
 import { PrimaryButton } from "./Button"
-import { d20 } from "../services/dice"
+import { probeSkill, skillProbeResults, skills, skillz } from "../services/skills"
 
 const BackDrop = styled.div`
   position: fixed;
@@ -17,7 +17,7 @@ const BackDrop = styled.div`
 `
 
 const Modal = styled.div`
-  max-width: 400px;
+  width: 400px;
   min-width: 320px;
   min-height: 200px;
   background: ${ colors.Background0 };
@@ -25,55 +25,115 @@ const Modal = styled.div`
   border-radius: 12px;
 `
 
-export default function ProbeOverlay(props) {
-  const closeHandler = props.closeHandler
-  const name = props.probe.name
-  const attr0 = props.probe.attr0
-  const attr1 = props.probe.attr1
-  const attr2 = props.probe.attr2
-  const points = props.probe.points
+const Traits = styled.div`
+  display: flex;
+  gap: 4px;
+  align-content: stretch;
+`
+const Trait = styled.div`
+  flex-grow: 1;
+  text-align: center;
+`
+
+const SkillTitle = styled.h4`
+  margin: 0;
+  text-align: center;
+  border-radius: 4px;
+  font-weight: 500;
+`
+const SkillBox = styled.div`
+  border-radius: 6px;
+  padding: 20px 16px;
+  border: 1px solid ${colors.Background10};
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`
+
+const ModalHeader = styled.header`
+  display: flex;
+  margin-bottom: 16px;
+`
+const ModalTitle = styled.div`
+  flex-grow: 1;
+  font-weight: 700;
+`
+const ModificatorControl = styled.div`
+  display: flex;
+  margin-top: 8px;
+`
+const AttributeSpan = styled.span`
+  text-transform: uppercase;
+`
+
+export default function SkillProbeOverlay(props) {
+  const skillId = props.probe.id
+  const skill = skillz.filter(skill => skill.id === skillId)[0]
+  const skillPoints = props.probe.points
+  const attributes = props.attibutes
   const [result, setResult] = useState()
+  const closeHandler = props.closeHandler
+  const [modificator, setModificator] = useState()
   const difficultyRef = useRef()
 
   function handleRoll() {
-    let pointsLeft = points
-    const roll0 = d20() 
-    const roll1 = d20() 
-    const roll2 = d20()
-    if(roll0 > attr0.value) {
-      pointsLeft -= roll0 - attr0.value
-    }
-    if(roll1 > attr1.value) {
-      pointsLeft -= roll1 - attr1.value
-    } 
-    if(roll2 > attr2.value) {
-      pointsLeft -= roll2 - attr2.value
-    }
-    if(pointsLeft >= 0) {
-      setResult(`Success! First: ${roll0}, Second: ${roll1}, Third: ${roll2}. Points left: ${pointsLeft}`)
-    } else {
-      setResult(`Failed! First: ${roll0}, Second: ${roll1}, Third: ${roll2}.`)
-    }
+    // TODO: Put in other function
+    const modificatorValue = modificator === "harder" ? -1 * difficultyRef.current.value : difficultyRef.current.value
+    
+    
+    setResult(probeSkill(skillId, modificatorValue, attributes, skillPoints))
+
   }
 
   function handleClose() {
     closeHandler()
   }
 
+  function handleModificatorChange(event) {
+    setModificator(event.target.value)
+  }
+
   return (
     <BackDrop>
       <Modal>
-        <h4>{name}</h4>
-        <input type="number" name="" id="" ref={difficultyRef} />
-        <p><span>{attr0.name}</span> <span>{attr0.value}</span></p>
-        <p><span>{attr1.name}</span> <span>{attr1.value}</span></p>
-        <p><span>{attr2.name}</span> <span>{attr2.value}</span></p>
-        <p>Fertigkeitswert: {points}</p>
+        <ModalHeader>
+          <ModalTitle>Talentprobe</ModalTitle>
+          <button onClick={handleClose}>Close</button>
+        </ModalHeader>
+        <SkillBox>
+          <SkillTitle>{skill.name}</SkillTitle>
+          <Traits>
+            <Trait>
+              <AttributeSpan>{skill.attributes[0]}</AttributeSpan> {attributes[skill.attributes[0]]}
+            </Trait>
+            <Trait>
+              <AttributeSpan>{skill.attributes[1]}</AttributeSpan> {attributes[skill.attributes[1]]}
+            </Trait>
+            <Trait>
+              <AttributeSpan>{skill.attributes[2]}</AttributeSpan> {attributes[skill.attributes[2]]}
+            </Trait>
+            <Trait>
+              Fertigkeitswert: {skillPoints}
+            </Trait>
+          </Traits>
+        </SkillBox>
+        <ModificatorControl>
+          <input type="number" name="modificatorValue" id="modificatorValue" ref={difficultyRef} min={0}/>
+          <select name="modificator" id="modificator" onChange={handleModificatorChange}>
+            <option value="easier">Erleichtert</option>
+            <option value="harder">Erschwert</option>
+          </select>
+        </ModificatorControl>
         { result &&
-          <p><strong>{result}</strong></p>
+          <>
+            <p><strong>{result.type}</strong></p>
+            <p>Du hast {result.rolls[0]}, {result.rolls[1]} und {result.rolls[2]} gewürfelt.</p>
+            <p>Fertigkeitspunkte übrig: {result.pointsLeft}</p>
+            <p>Qualitätsstufe: {result.qualtiyLevel}</p>
+          </>
         }
         <PrimaryButton onClick={handleRoll}>Roll the dice</PrimaryButton>
-        <button onClick={handleClose}>Close</button>
+
       </Modal>
     </BackDrop>)
 }

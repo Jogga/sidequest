@@ -25,6 +25,7 @@ const Attributes = styled.div`
 
 export default function Skill(props) {
   const name = props.skill.name
+  const id = props.skill.id
   const attribute0 = props.skill.attributes[0]
   const attribute1 = props.skill.attributes[1]
   const attribute2 = props.skill.attributes[2]
@@ -32,7 +33,7 @@ export default function Skill(props) {
   const probeHandler = props.probeHandler
 
   function handleProbe() {
-    probeHandler(name, attribute0, attribute1, attribute2, skillPoints)
+    probeHandler(id, skillPoints)
   }
   
   return (

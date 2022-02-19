@@ -27,7 +27,7 @@ const AttributeShorthand = styled.h4`
 
 export default function Attribute(props) {
   return (
-    <AttributeContainer>
+    <AttributeContainer key={props.shorthand }>
       <AttributeShorthand>{ props.shorthand.toUpperCase() }</AttributeShorthand>
       <AttributeValue>{ props.value }</AttributeValue>
     </AttributeContainer>
