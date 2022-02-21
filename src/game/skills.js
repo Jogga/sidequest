@@ -213,27 +213,3 @@ function getQualityLevel(skillPointsLeft) {
   else if (skillPointsLeft < 16) return 5
   else return 6
 }
-
-
-/*
-
-    let pointsLeft = points
-    const roll0 = d20() 
-    const roll1 = d20() 
-    const roll2 = d20()
-    if(roll0 > attr0.value) {
-      pointsLeft -= roll0 - attr0.value
-    }
-    if(roll1 > attr1.value) {
-      pointsLeft -= roll1 - attr1.value
-    } 
-    if(roll2 > attr2.value) {
-      pointsLeft -= roll2 - attr2.value
-    }
-    if(pointsLeft >= 0) {
-      setResult(`Success! First: ${roll0}, Second: ${roll1}, Third: ${roll2}. Points left: ${pointsLeft}`)
-    } else {
-      setResult(`Failed! First: ${roll0}, Second: ${roll1}, Third: ${roll2}.`)
-    }
-
-*/

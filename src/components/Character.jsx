@@ -6,7 +6,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Attributes from './Attributes'
 import Energy from './Energy'
 import Page from './Page'
-import { skills } from '../services/skills'
+import { skills } from '../game/skills'
 import Skill from './Skill'
 import SkillProbeOverlay from './ProbeOverlay';
 

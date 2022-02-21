@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>dice-shape-grey</title>
+    <desc>Created with Sketch.</desc>
+    <g id="dice-shape-grey" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M24.6683041,2.8781194 L42.3111612,12.8602623 C42.7368387,13.1011061 43,13.5523628 43,14.0414508 L43,33.9585492 C43,34.4476372 42.7368387,34.8988939 42.3111612,35.1397377 L24.6683041,45.1218806 C24.2536521,45.3564863 23.7463479,45.3564863 23.3316959,45.1218806 L5.6888388,35.1397377 C5.26316133,34.8988939 5,34.4476372 5,33.9585492 L5,14.0414508 C5,13.5523628 5.26316133,13.1011061 5.6888388,12.8602623 L23.3316959,2.8781194 C23.7463479,2.64351368 24.2536521,2.64351368 24.6683041,2.8781194 Z" id="Polygon-Copy-2" fill="#E1E3ED"></path>
+    </g>
+</svg>

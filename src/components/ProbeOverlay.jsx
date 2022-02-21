@@ -2,7 +2,8 @@ import React, { useRef, useState } from "react"
 import styled from "styled-components"
 import { colors } from "../globalStyles"
 import { PrimaryButton } from "./Button"
-import { probeSkill, skillProbeResults, skills, skillz } from "../services/skills"
+import { probeSkill, skillz } from "../game/skills"
+import ProbeResult from "./ProbeResult"
 
 const BackDrop = styled.div`
   position: fixed;
@@ -85,6 +86,10 @@ export default function SkillProbeOverlay(props) {
 
   }
 
+  function handleReset() {
+    setResult()
+  }
+
   function handleClose() {
     closeHandler()
   }
@@ -98,7 +103,7 @@ export default function SkillProbeOverlay(props) {
       <Modal>
         <ModalHeader>
           <ModalTitle>Talentprobe</ModalTitle>
-          <button onClick={handleClose}>Close</button>
+          <button onClick={handleClose}>Schließen</button>
         </ModalHeader>
         <SkillBox>
           <SkillTitle>{skill.name}</SkillTitle>
@@ -124,15 +129,20 @@ export default function SkillProbeOverlay(props) {
             <option value="harder">Erschwert</option>
           </select>
         </ModificatorControl>
+        
+        <ProbeResult result={result}/>
         { result &&
           <>
             <p><strong>{result.type}</strong></p>
             <p>Du hast {result.rolls[0]}, {result.rolls[1]} und {result.rolls[2]} gewürfelt.</p>
             <p>Fertigkeitspunkte übrig: {result.pointsLeft}</p>
             <p>Qualitätsstufe: {result.qualtiyLevel}</p>
+            <button onClick={handleReset}>Zurücksetzen</button>
           </>
         }
-        <PrimaryButton onClick={handleRoll}>Roll the dice</PrimaryButton>
+        { !result &&
+          <PrimaryButton onClick={handleRoll}>Würfeln</PrimaryButton>
+        }
 
       </Modal>
     </BackDrop>)
