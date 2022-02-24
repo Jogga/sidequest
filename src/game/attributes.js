@@ -1,60 +1,78 @@
-// ToDo: List of Attributes
+import { d20 } from "./dice"
 
+// List of Attributes
+export const attributes = {
+  ATTR_1: { name: "mu" },
+  ATTR_2: { name: "in" },
+  ATTR_3: { name: "kl" },
+  ATTR_4: { name: "ch" },
+  ATTR_5: { name: "ko" },
+  ATTR_6: { name: "kk" },
+  ATTR_7: { name: "ge" },
+  ATTR_8: { name: "ff" }
+}
 
-// ToDo: Attribute Probe
+export const attributeProbeResults = {
+  criticalFailure: "Patzer!",
+  incredibleFailure: "Doppelpatzer!",
+  criticalSuccess: "Meisterlich!",
+  incredibleSuccess: "Doppelt meisterlich!",
+  success: "Geschafft!",
+  failure: "Fehlschlag!"
+}
 
+// Attribute Probe
+export function probeAttribute(id, modificator, characterAttributes) {
+  let attributeValue = characterAttributes[id].value
 
-/*
-def perform_attr_probe(self, attr: str, mod: int = 0):
-        """ Performs an attribute probe with a modifier
-        """
-        print(f"The mighty {self.name} has incredible {self.attr[attr]} points in {attr}," +
-              f"the modifier for this probe is {mod}")
+  const roll = d20()
+  const result = attributeValue - roll + modificator
 
-        # Booleans indicating whether something was meisterlich or a patzer
-        meister = False
-        mega_meister = False
-        patz = False
-        mega_patz = False
+  if (roll === 1) {
 
-        roll = randint(1, 20)
-        self.rolls = roll
-        res = self.attr[attr] - roll + mod
-        print(f'The die shows a {roll}')
+    // Meisterlich?
+    const roll2 = d20()
+    const result2 = attributeValue - roll2 + modificator
 
-        if res >= 0 and roll != 20:  # Passed
-            print(f"{self.name} has passed")
-            passed = True
-            if roll == 1:
-                print('Will it be meisterlich?')
-                roll2 = randint(1, 20)
-                res2 = self.attr[attr] - roll2 + mod
-                if res >= 0:
-                    print('Yes!')
-                    meister = True
-                else:
-                    print('No :(')
-                if roll2 ==1:
-                    mega_meister = True
-        elif roll != 20:  # Failed by no patzer
-            print(f"{self.name} has failed")
-            passed = False
-        elif roll == 20:  # Failed an CAN be a patzer
-            print(f"{self.name} has failed, but will it be a complete disaster?")
-            passed = False
-            roll2 = randint(1, 20)
-            res2 = self.attr[attr] - roll2 + mod
-            if res <= 0:  # Patzer
-                print("Yes....")
-                patz = True
-            else:  # Just a normal fail
-                print("No, thanks to the Twelve")
-            if roll2 == 20:  # Doppel-20 patzer
-                mega_patz = True
-        else:  # Dedugging...
-            print('This should never happen :(')
+    if (roll2 === 1) {
 
-        self.logger.info(f'attr_probe;{self.name};{attr};{self.attr[attr]};{mod};{roll};{res};{passed};{meister};{patz}')
+      // Doppelt meisterlich!
+      return { type: attributeProbeResults.incredibleSuccess, rolls: [roll, roll2] }
+    } else if (result2 >= 0) {
 
-        return passed, meister, mega_meister, patz , mega_patz
-*/
+      // Meisterlich!
+      return { type: attributeProbeResults.criticalSuccess, rolls: [roll, roll2] }
+    } else {
+
+      // Nicht meisterlich.
+      return { type: attributeProbeResults.success, rolls: [roll, roll2] }
+    }
+  } else if (roll === 20) {
+
+    // Patzer?
+    const roll2 = d20()
+    const result2 = attributeValue - roll2 + modificator
+
+    if (roll2 === 20) {
+
+      // Doppelpatzer!
+      return { type: attributeProbeResults.incredibleFailure, rolls: [roll, roll2] }
+    } else if (result2 < 0) {
+
+      // Patzer!
+      return { type: attributeProbeResults.criticalFailure, rolls: [roll, roll2] }
+    } else {
+
+      // Nicht gepatzt.
+      return { type: attributeProbeResults.failure, rolls: [roll, roll2] }
+    }
+  } else if (result >= 0) {
+
+    // Geschafft.
+    return { type: attributeProbeResults.success, rolls: [roll] }
+  } else {
+
+    // Nicht geschafft.
+    return { type: attributeProbeResults.failure, rolls: [roll] }
+  }
+}
