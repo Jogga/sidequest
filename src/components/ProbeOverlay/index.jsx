@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react"
 import styled from "styled-components"
-import { colors } from "../globalStyles"
-import { PrimaryButton } from "./Button"
-import { probeSkill, skillz } from "../game/skills"
-import ProbeResult from "./ProbeResult"
+import { colors } from "../../globalStyles"
+import { PrimaryButton, SecondaryButton } from "../Button"
+import { probeSkill, skillz } from "../../game/skills"
+import ProbeResult from "../ProbeResult"
 
 const BackDrop = styled.div`
   position: fixed;
@@ -25,7 +25,6 @@ const Modal = styled.div`
   padding: 16px;
   border-radius: 12px;
 `
-
 const Traits = styled.div`
   display: flex;
   gap: 4px;
@@ -35,7 +34,6 @@ const Trait = styled.div`
   flex-grow: 1;
   text-align: center;
 `
-
 const SkillTitle = styled.h4`
   margin: 0;
   text-align: center;
@@ -50,7 +48,6 @@ const SkillBox = styled.div`
   flex-direction: column;
   gap: 12px;
 `
-
 const ModalHeader = styled.header`
   display: flex;
   margin-bottom: 16px;
@@ -94,13 +91,7 @@ export default function SkillProbeOverlay(props) {
   }
 
   function handleModificatorChange(event) {
-
     setModificator(event.target.value)
-    
-  }
-  function tesst(event) {
-    console.log(event.target.value)
-    console.log(difficultyRef)
   }
 
   return (
@@ -128,7 +119,7 @@ export default function SkillProbeOverlay(props) {
           </Traits>
         </SkillBox>
         <ModificatorControl>
-          <input type="number" name="modificatorValue" id="modificatorValue" ref={difficultyRef} min={0} onChange={tesst} />
+          <input type="number" name="modificatorValue" id="modificatorValue" ref={difficultyRef} min={0} />
           <select name="modificator" id="modificator" onChange={handleModificatorChange}>
             <option value="easier">Erleichtert</option>
             <option value="harder">Erschwert</option>
@@ -142,7 +133,7 @@ export default function SkillProbeOverlay(props) {
             <p>Du hast {result.rolls[0]}, {result.rolls[1]} und {result.rolls[2]} gewürfelt.</p>
             <p>Fertigkeitspunkte übrig: {result.pointsLeft}</p>
             <p>Qualitätsstufe: {result.qualtiyLevel}</p>
-            <button onClick={handleReset}>Zurücksetzen</button>
+            <SecondaryButton onClick={handleReset}>Zurücksetzen</SecondaryButton>
           </>
         }
         { !result &&
