@@ -78,12 +78,11 @@ export default function SkillProbeOverlay(props) {
   const difficultyRef = useRef()
 
   function handleRoll() {
+
     // TODO: Put in other function
     const modificatorValue = modificator === "harder" ? -1 * difficultyRef.current.value : difficultyRef.current.value
-    
-    
-    setResult(probeSkill(skillId, modificatorValue, attributes, skillPoints))
 
+    setResult(probeSkill(skillId, modificatorValue, attributes, skillPoints))
   }
 
   function handleReset() {
@@ -95,7 +94,13 @@ export default function SkillProbeOverlay(props) {
   }
 
   function handleModificatorChange(event) {
+
     setModificator(event.target.value)
+    
+  }
+  function tesst(event) {
+    console.log(event.target.value)
+    console.log(difficultyRef)
   }
 
   return (
@@ -123,7 +128,7 @@ export default function SkillProbeOverlay(props) {
           </Traits>
         </SkillBox>
         <ModificatorControl>
-          <input type="number" name="modificatorValue" id="modificatorValue" ref={difficultyRef} min={0}/>
+          <input type="number" name="modificatorValue" id="modificatorValue" ref={difficultyRef} min={0} onChange={tesst} />
           <select name="modificator" id="modificator" onChange={handleModificatorChange}>
             <option value="easier">Erleichtert</option>
             <option value="harder">Erschwert</option>

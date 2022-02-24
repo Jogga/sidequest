@@ -9,3 +9,7 @@ export function d20() {
 export function d6() {
   return getRandomInt(6)
 }
+
+export function d(max) {
+  return Math.floor(Math.random() * max) + 1
+}

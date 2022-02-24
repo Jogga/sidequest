@@ -33,9 +33,9 @@ export default function Character() {
   let [karmaPoints, setKarmaPoints] = useState()
   let [attributes, setAttributes] = useState()
   let [characterSkills, setCharacterSkills] = useState([])
-  const characterRef = doc(db, "characters", params.characterId)
   let [editingValue, setEditingValue] = useState()
   let [skillProbe, setSkillProbe] = useState()
+  const characterRef = doc(db, "characters", params.characterId)
 
   function manageEdit(fieldId, toEdit) {
     if (toEdit) {

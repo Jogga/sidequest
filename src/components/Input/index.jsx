@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { colors } from "../globalStyles"
+import { colors } from "../../globalStyles"
 
 export const TextInput = styled.input`
   font-size: 14px;
