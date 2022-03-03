@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import Header from './Header'
-import { db } from '../firebase'
+import { useEffect, useState } from 'react'
+import Header from './../Header'
+import { db } from '../../firebase'
 import { query, collection, getDocs, where } from "firebase/firestore"; 
-import { useAuth } from '../contexts/AuthContext';
-import CharacterList from './CharacterList';
-import Page from './Page';
+import { useAuth } from '../../contexts/AuthContext';
+import CharacterList from '../CharacterList';
+import Page from './../Page';
+import { Character } from '../../models/Character';
 
 export default function Characters() {
   const { currentUser } = useAuth()
-  let [characters, setCharacters] = useState([])
-  let [error, setError] = useState()
-  let [loading, setLoading] = useState()
+  let [characters, setCharacters] = useState<Character[]>([])
+  let [error, setError] = useState<String | null>()
+  let [loading, setLoading] = useState<Boolean | null >()
 
   useEffect(() => {
     (async () => {
@@ -19,15 +20,9 @@ export default function Characters() {
       try {
         const charactersQuery = query(collection(db, "characters"), where("player", "==", currentUser.uid))
         const charactersCollection = await getDocs(charactersQuery)
-        let cs = []
+        let cs: Character[] = []
         charactersCollection.forEach((doc) => {
-          let character = {}
-          character.name = doc.get("name")
-          character.player = doc.get("player")
-          character.id = doc.id
-          character.life = {}
-          character.life.maximum = doc.get("lifePoints.maximum")
-          character.life.current = doc.get("lifePoints.current")
+          let character = new Character(doc)
           cs.push(character)
         })
         setCharacters(cs)

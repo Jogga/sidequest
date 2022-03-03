@@ -1,9 +1,9 @@
 import React from "react"
-import { Link } from "react-router-dom"
-import { useAuth } from "../contexts/AuthContext"
 import styled from "styled-components"
-import { colors } from "../globalStyles"
-import { ReactComponent as IconLock } from '../assets/icon-lock.svg' 
+import { Link } from "react-router-dom"
+import { useAuth } from "../../contexts/AuthContext"
+import { colors } from "../../globalStyles"
+import { ReactComponent as IconLock } from '../../assets/icon-lock.svg' 
 
 
 const StyledCharacterListItem = styled.li`
