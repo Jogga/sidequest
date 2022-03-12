@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Header from './Header'
-import { db } from '../firebase'
+import Header from '../Header'
+import { db } from '../../firebase'
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import Attributes from './Attributes'
-import Energy from './Energy'
-import Page from './Page'
-import { skills } from '../game/skills'
-import Skill from './Skill'
-import SkillProbeOverlay from './ProbeOverlay';
+import Attributes from '../Attributes'
+import Energy from '../Energy'
+import Page from '../Page'
+import { skills } from '../../game/skills'
+import Skill from '../Skill'
+import SkillProbeOverlay from '../ProbeOverlay';
 
 const energyTypes = {}
 energyTypes.life = {
@@ -24,7 +24,7 @@ energyTypes.karma = {
   label: "Karmaenergie",
 }
 
-export default function Character() {
+export default function CharacterPage() {
   let params = useParams()
   let [error, setError] = useState("")
   let [character, setCharacter] = useState()

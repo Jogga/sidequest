@@ -1,56 +1,56 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Header from './Header'
-import { db } from '../firebase'
+import Header from '../Header'
+import { db } from '../../firebase'
 import { query, getDoc, getDocs, doc, collection, where } from "firebase/firestore"
-import CharacterList from './CharacterList'
-import Page from './Page'
-import { useAuth } from '../contexts/AuthContext'
+import CharacterList from '../CharacterList'
+import Page from '../Page'
+import { useAuth } from '../../contexts/AuthContext'
+import { Party } from '../../models/Party'
+import { Host } from '../../models/Host'
+import { Character } from '../../models/Character'
 
-export default function Party() {
-  let params = useParams()
+type PartyParams = {
+  partyId: string
+}
+
+export default function PartyPage() {
+  const { partyId } = useParams<PartyParams>()
   let { currentUser } = useAuth()
-  const [party, setParty] = useState()
-  let [error, setError] = useState("")
-  let [loading, setLoading] = useState(false)
+  const [party, setParty] = useState<Party>()
+  let [error, setError] = useState<string>("")
+  let [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     (async () => {
       console.log("effect")
       try {
         setLoading(true)
+
+        if (!partyId) {           
+          setError("No Party Id provided")
+          return
+        }
+
         // Load party
-        const partyRef = doc(db, "parties", params.partyId)
+        const partyRef = doc(db, "parties", partyId)
         let partyDoc = await getDoc(partyRef)
-        let p = {}
-        p.name = partyDoc.get("name")
-        p.characterIds = partyDoc.get("characters")
         
         // Load host
         const hostRef = doc(db, "users", partyDoc.get("host"))
         let hostDoc = await getDoc(hostRef)
-        let h = {}
-        h.name = hostDoc.get("name")
-        h.id = hostDoc.id
-        p.host = h
+        let host = new Host(hostDoc)
 
         // Load characters
-        const charactersQuery = query(collection(db, "characters"), where("party", "==", params.partyId))
+        const charactersQuery = query(collection(db, "characters"), where("party", "==", partyId))
         let charactersCollection = await getDocs(charactersQuery)
-        let cs = []
+        let characters: Character[] = []
         charactersCollection.forEach((doc) => {
-          let character = {}
-          character.name = doc.get("name")
-          character.id = doc.id
-          character.player = doc.get("player")
-          character.life = {}
-          character.life.maximum = doc.get("lifePoints.maximum")
-          character.life.current = doc.get("lifePoints.current")
-          cs.push(character)
+          let character = new Character(doc)
+          characters.push(character)
         })
-        p.characters = cs
 
-        setParty(p)
+        setParty(new Party(partyDoc, host, characters))
       } catch (error) {
         console.log(error)
         setError("Could not load characters")

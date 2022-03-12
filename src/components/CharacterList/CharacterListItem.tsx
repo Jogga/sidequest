@@ -1,10 +1,10 @@
-import React from "react"
+import React from 'react'
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 import { useAuth } from "../../contexts/AuthContext"
 import { colors } from "../../globalStyles"
 import { ReactComponent as IconLock } from '../../assets/icon-lock.svg' 
-
+import { Character } from '../../models/Character'
 
 const StyledCharacterListItem = styled.li`
   background-color: ${ colors.Background0 };
@@ -53,13 +53,22 @@ const PlayedByYouBadge = styled.span`
   border-radius: 12px;
 `
 
-function CharacterListItem(props) {
+type CharacterListItemProps = {
+  character: Character
+  userId: String
+  unlocked: Boolean
+}
+
+export default function CharacterListItem(props: CharacterListItemProps) {
   const character = props.character
   const userId = props.userId
   const unlocked = props.unlocked
 
+  console.log("character" + character.playerId)
+  console.log("user" + userId)
+
   let button;
-  if(character.player === userId || unlocked) {
+  if(character.playerId === userId || unlocked) {
     button = <OpenButton to={character.id}>View</OpenButton>
   } else {
     button = <IconLock />
@@ -69,31 +78,11 @@ function CharacterListItem(props) {
     <StyledCharacterListItem>
       <CharacterInfo>
         <CharacterName>{character.name}</CharacterName> 
-        {character.player === userId && 
+        {character.playerId === userId && 
           <PlayedByYouBadge>Your character</PlayedByYouBadge>
         }
       </CharacterInfo>
         {button}
     </StyledCharacterListItem>
-  )
-}
-
-const StyledCharacterList = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-`
-
-export default function CharacterList(props) {
-  const characters = props.characters
-  const unlocked = props.unlocked
-  const { currentUser } = useAuth()
-  
-  let characterList = characters.map(character => <CharacterListItem key={character.id} unlocked={unlocked} character={character} userId={currentUser.uid}/>) 
-  return (
-    <StyledCharacterList>
-      {characterList}
-    </StyledCharacterList>
-    
   )
 }

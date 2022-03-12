@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
-import Header from './../Header'
+import Header from '../Header'
 import { db } from '../../firebase'
 import { query, collection, getDocs, where } from "firebase/firestore"; 
 import { useAuth } from '../../contexts/AuthContext';
 import CharacterList from '../CharacterList';
-import Page from './../Page';
+import Page from '../Page';
 import { Character } from '../../models/Character';
 
-export default function Characters() {
+export default function CharactersPage() {
   const { currentUser } = useAuth()
   let [characters, setCharacters] = useState<Character[]>([])
   let [error, setError] = useState<String | null>()

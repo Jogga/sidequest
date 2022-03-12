@@ -9,11 +9,13 @@ export class Character {
   life?: Energy
   karma?: Energy
   astral?: Energy
+  playerId: String
   attributes: Attribute[] = []
   skills: Skill[] = []
 
   constructor(doc: QueryDocumentSnapshot<DocumentData>) {
     this.name = doc.get("name")
     this.id = doc.id
+    this.playerId = doc.get("player")
   }
 }

@@ -3,12 +3,12 @@ import Signup from "./Signup";
 import { AuthProvider } from "../contexts/AuthContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom" 
 import Profile from "./Profile";
-import Character from "./Character";
-import Characters from "./Characters";
+import CharacterPage from "./CharacterPage";
+import CharactersPage from "./CharactersPage";
 import Login from "./Login";
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
-import Party from "./Party";
+import PartyPage from "./PartyPage";
 import Parties from "./Parties";
 import Home from "./Home";
 import GlobalStyle from "../globalStyles";
@@ -40,25 +40,25 @@ function App() {
           />
           <Route path="parties/:partyId" element={
             <PrivateRoute>
-              <Party />
+              <PartyPage />
             </PrivateRoute>
             }
           />
           <Route path="/characters" element={
             <PrivateRoute>
-              <Characters />
+              <CharactersPage />
             </PrivateRoute>
             }
           />
           <Route path="characters/:characterId" element={
             <PrivateRoute>
-              <Character />
+              <CharacterPage />
             </PrivateRoute>
             }
           />
           <Route path="parties/:partyId/:characterId" element={
             <PrivateRoute>
-              <Character />
+              <CharacterPage />
             </PrivateRoute>
             }
           />
