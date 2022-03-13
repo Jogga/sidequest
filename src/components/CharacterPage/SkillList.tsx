@@ -2,30 +2,7 @@ import React, { Key } from 'react'
 import styled from 'styled-components'
 import { colors } from "../../globalStyles"
 import { Skill } from "../../models/Skill"
-
-const StyledSkillListItem = styled.li`
- display: flex;
- padding: 4px 8px;
- border-radius: 2px;
- border-top: 1px solid ${colors.Background10};
- &:hover{
-   background-color: ${ colors.Background5 };
- }
-`
-const SkillName = styled.p`
-  font-weight: 500;
-  min-width: 200px;
-  color: ${ colors.Foreground100 };
-  margin: 0;
-`
-const SkillInfos = styled.div`
-  display: flex;
-  flex-grow: 1;
-  color: ${ colors.Foreground80 };
-`
-const Attributes = styled.div`
- min-width: 120px;
-`
+import SkillListItem from './SkillListItem'
 
 const StyledSkillList = styled.ul`
   padding: 0;
@@ -36,7 +13,8 @@ const StyledSkillList = styled.ul`
 const StyledSkillCategory = styled.div`
  background: white;
  border-radius: 6px;
- padding: 8px 8px 16px;
+ padding: 12px 16px 16px;
+ box-shadow: 0px 2px 5px ${ colors.Background10 };
 `
 const CategoryTitle = styled.h3`
  margin: 0 0 8px;
@@ -44,7 +22,15 @@ const CategoryTitle = styled.h3`
 `
 
 const Categories = styled.section`
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  @media (min-width: 800px) {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    column-gap: 16px;
+    row-gap: 16px;
+  } 
 `
 
 type SkillListProps = {
@@ -65,22 +51,14 @@ export default function SkillList(props: SkillListProps) {
     }
   })
 
+
   // Build CategoryList
   let SkillCategories = Array.from(categories, ([key, skills]) => {
     
     // Build SkillList
     let skillListItems = skills.map(skill => {
       return (
-        <StyledSkillListItem key={skill.id as Key}>
-        <SkillInfos>
-        <SkillName>{skill.name}</SkillName>
-          <Attributes>
-            (<span>{skill.attributes[0].shortName}</span>, <span>{skill.attributes[1].shortName}</span>, <span>{skill.attributes[2].shortName}</span>)
-          </Attributes>
-          <div>{skill.value}</div>
-        </SkillInfos>
-        <button>Try</button>
-      </StyledSkillListItem>
+        <SkillListItem key={skill.id as Key} skill={skill} clickHandler={props.probeHandler} />
       )
     })
     return(

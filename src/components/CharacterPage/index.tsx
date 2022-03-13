@@ -8,6 +8,7 @@ import SkillProbeOverlay from '../ProbeOverlay'
 import { Character } from '../../models/Character'
 import AttributeList from './AttributeList'
 import SkillList from './SkillList'
+import { Skill } from '../../models/Skill'
 
 type CharacterParams = {
   characterId: string
@@ -19,7 +20,7 @@ export default function CharacterPage() {
   let [loading, setLoading] = useState<boolean>(false)
   let [character, setCharacter] = useState<Character>()
   let [editingValue, setEditingValue] = useState()
-  let [skillProbe, setSkillProbe] = useState()
+  let [skillProbe, setSkillProbe] = useState<Skill | null>(null)
 
   // function manageEdit(fieldId, toEdit) {
   //   if (toEdit) {
@@ -79,14 +80,13 @@ export default function CharacterPage() {
     })()
   }, [])
 
-  function probeSkill() {
-    console.log("Probe")
-    // setSkillProbe({ id: id, points: points })
+  function probeSkill(skill: Skill) {
+    setSkillProbe(skill)
   }
 
-  // function closeProbeOverlay() {
-  //   setSkillProbe()
-  // }
+  function closeProbeOverlay() {
+    setSkillProbe(null)
+  }
 
   // let CategoryList = skills.map(category => {
   //   let skillList = category.list.map(skill => {
@@ -107,9 +107,9 @@ export default function CharacterPage() {
   // })
   return (
     <>
-      {/* { skillProbe &&
-        <SkillProbeOverlay probe={skillProbe} attibutes={attributes} closeHandler={closeProbeOverlay}/>
-      } */}
+      { skillProbe && character &&
+        <SkillProbeOverlay skill={skillProbe} attibutes={character.attributes} closeHandler={closeProbeOverlay}/>
+      }
       <Header />
       <Page backNav={true}>
       {error && <p>{ error }</p>}

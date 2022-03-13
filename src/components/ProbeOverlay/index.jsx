@@ -65,15 +65,16 @@ const AttributeSpan = styled.span`
 `
 
 export default function SkillProbeOverlay(props) {
-  const skillId = props.probe.id
+  const skillId = props.skill.id
   const skill = skillz.filter(skill => skill.id === skillId)[0]
-  const skillPoints = props.probe.points
+  const skillPoints = props.skill.value
   const attributes = props.attibutes
   const [result, setResult] = useState()
   const closeHandler = props.closeHandler
   const [modificator, setModificator] = useState()
   const difficultyRef = useRef()
 
+  console.log(attributes)
   function handleRoll() {
 
     // TODO: Put in other function
