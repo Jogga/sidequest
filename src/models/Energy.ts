@@ -1,6 +1,13 @@
+import { DocumentSnapshot, DocumentData } from "firebase/firestore"
+
 export class Energy {
-  id: string = ""
-  name: string  = ""
-  currentValue: Number = 1
-  maximumValue: Number = 2
+  name: string
+  currentValue: number
+  maximumValue: number
+
+  constructor(name: string, doc: DocumentSnapshot<DocumentData>) {
+    this.name = name
+    this.currentValue = 10 // doc.get("current")
+    this.maximumValue = 20 // doc.get('maximum')
+  }
 }

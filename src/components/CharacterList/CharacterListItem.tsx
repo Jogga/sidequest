@@ -64,9 +64,6 @@ export default function CharacterListItem(props: CharacterListItemProps) {
   const userId = props.userId
   const unlocked = props.unlocked
 
-  console.log("character" + character.playerId)
-  console.log("user" + userId)
-
   let button;
   if(character.playerId === userId || unlocked) {
     button = <OpenButton to={character.id}>View</OpenButton>

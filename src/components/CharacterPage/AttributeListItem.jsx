@@ -25,7 +25,8 @@ const AttributeShorthand = styled.h4`
   line-height: 20px;
 `
 
-export default function Attribute(props) {
+
+export default function AttributeListItem(props) {
   return (
     <AttributeContainer key={props.shorthand }>
       <AttributeShorthand>{ props.shorthand.toUpperCase() }</AttributeShorthand>
