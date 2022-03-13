@@ -86,8 +86,9 @@ export default function Header() {
           <HomeLink to="/">
             <Dice />
           </HomeLink> 
-          <StyledNavLink to="/parties"> Parties</StyledNavLink>
-          <StyledNavLink to="/characters"> Characters</StyledNavLink>
+          <StyledNavLink to="/">Home</StyledNavLink>
+          <StyledNavLink to="/parties">Parties</StyledNavLink>
+          <StyledNavLink to="/characters">Characters</StyledNavLink>
       </MainNav>
       <ProfileLink to="/profile">
         <ProfileIcon />

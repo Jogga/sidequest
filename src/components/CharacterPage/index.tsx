@@ -4,11 +4,10 @@ import Header from '../Header'
 import { db } from '../../firebase'
 import { doc, getDoc, updateDoc } from "firebase/firestore"
 import Page from '../Page'
-import { skills } from '../../game/skills'
-import Skill from '../Skill'
 import SkillProbeOverlay from '../ProbeOverlay'
 import { Character } from '../../models/Character'
 import AttributeList from './AttributeList'
+import SkillList from './SkillList'
 
 type CharacterParams = {
   characterId: string
@@ -80,9 +79,10 @@ export default function CharacterPage() {
     })()
   }, [])
 
-  // function probeSkill(id, points) {
-  //   setSkillProbe({ id: id, points: points })
-  // }
+  function probeSkill() {
+    console.log("Probe")
+    // setSkillProbe({ id: id, points: points })
+  }
 
   // function closeProbeOverlay() {
   //   setSkillProbe()
@@ -105,7 +105,6 @@ export default function CharacterPage() {
   //     </div>
   //   )
   // })
-  console.log(character?.attributes)
   return (
     <>
       {/* { skillProbe &&
@@ -118,6 +117,7 @@ export default function CharacterPage() {
         <>
           <h1>{ character.name }</h1>
           <AttributeList attributes={character.attributes} />
+          <SkillList skills={character.skills} probeHandler={probeSkill} />
           {/* 
           <Energy 
             energy={character.get(energyTypes.life.key)}

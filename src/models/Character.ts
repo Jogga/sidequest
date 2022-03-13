@@ -1,7 +1,7 @@
 import { DocumentData, QueryDocumentSnapshot, DocumentSnapshot } from "firebase/firestore"
 import { Attribute, AttributeId } from "./Attribute"
 import { Energy } from "./Energy"
-import { Skill } from "./Skill"
+import { Skill, SkillId } from "./Skill"
 
 export class Character {
   name: string
@@ -22,8 +22,21 @@ export class Character {
     
     const attributeData = doc.get("attributes")
 
-    for (const id in AttributeId) {
-      this.attributes.push(new Attribute(AttributeId[id as keyof typeof AttributeId], attributeData[id]))
+    for(const id in AttributeId) {
+      const value = attributeData[id]
+      if(typeof value === "number") {
+        this.attributes.push(new Attribute(id, value))
+      }
+    }
+
+    const skillData = doc.get("skills")
+    for (const id in SkillId) {
+      const value = skillData[id]
+      if(typeof value === "number") {
+        this.skills.push(new Skill(id, value))
+      } else {
+        this.skills.push(new Skill(id))
+      }
     }
   }
 }
