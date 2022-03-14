@@ -4,7 +4,7 @@ import Header from '../Header'
 import { db } from '../../firebase'
 import { doc, getDoc, updateDoc } from "firebase/firestore"
 import Page from '../Page'
-import SkillProbeOverlay from '../ProbeOverlay'
+import SkillProbeOverlay from './ProbeOverlay'
 import { Character } from '../../models/Character'
 import AttributeList from './AttributeList'
 import SkillList from './SkillList'
@@ -108,7 +108,7 @@ export default function CharacterPage() {
   return (
     <>
       { skillProbe && character &&
-        <SkillProbeOverlay skill={skillProbe} attibutes={character.attributes} closeHandler={closeProbeOverlay}/>
+        <SkillProbeOverlay skill={skillProbe} closeHandler={closeProbeOverlay}/>
       }
       <Header />
       <Page backNav={true}>

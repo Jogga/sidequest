@@ -15,6 +15,16 @@ export class Attribute {
   name: string
   shortName: string
 
+  static getAttributeFromArray(id: AttributeId, attributes: Attribute[]): Attribute {
+    let attribute: Attribute = attributes[0]
+    attributes.forEach((a) => {
+      if (a.id === id) {
+        attribute = a
+      }
+    })
+    return attribute
+  }
+
   constructor(id: string, value?: number) {
     this.id = AttributeId[id as keyof typeof AttributeId]
     this.value = value ?? undefined

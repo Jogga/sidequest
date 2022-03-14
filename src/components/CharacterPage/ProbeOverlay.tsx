@@ -4,6 +4,7 @@ import { colors } from "../../globalStyles"
 import { PrimaryButton, SecondaryButton } from "../Button"
 import { probeSkill, skillz } from "../../game/skills"
 import ProbeResult from "../ProbeResult"
+import { Skill } from "../../models/Skill"
 
 const BackDrop = styled.div`
   position: fixed;
@@ -64,36 +65,37 @@ const AttributeSpan = styled.span`
   text-transform: uppercase;
 `
 
-export default function SkillProbeOverlay(props) {
-  const skillId = props.skill.id
-  const skill = skillz.filter(skill => skill.id === skillId)[0]
-  const skillPoints = props.skill.value
-  const attributes = props.attibutes
-  const [result, setResult] = useState()
+type SkillProbeOverlayProps = {
+  skill: Skill,
+  closeHandler: Function
+}
+
+export default function SkillProbeOverlay(props: SkillProbeOverlayProps) {
+  const skill = props.skill
   const closeHandler = props.closeHandler
+  const [result, setResult] = useState()
   const [modificator, setModificator] = useState()
   const difficultyRef = useRef()
 
-  console.log(attributes)
   function handleRoll() {
 
     // TODO: Put in other function
-    const modificatorValue = modificator === "harder" ? -1 * difficultyRef.current.value : difficultyRef.current.value
+    // const modificatorValue = modificator === "harder" ? -1 * difficultyRef.current.value : difficultyRef.current.value
 
-    setResult(probeSkill(skillId, modificatorValue, attributes, skillPoints))
+    // setResult(probeSkill(skillId, modificatorValue, attributes, skillPoints))
   }
 
   function handleReset() {
-    setResult()
+    // setResult()
   }
 
   function handleClose() {
     closeHandler()
   }
 
-  function handleModificatorChange(event) {
-    setModificator(event.target.value)
-  }
+  // function handleModificatorChange(event) {
+  //   setModificator(event.target.value)
+  // }
 
   return (
     <BackDrop>
@@ -106,36 +108,38 @@ export default function SkillProbeOverlay(props) {
           <SkillTitle>{skill.name}</SkillTitle>
           <Traits>
             <Trait>
-              <AttributeSpan>{skill.attributes[0]}</AttributeSpan> {attributes[skill.attributes[0]]}
+              <AttributeSpan>{skill.attributes[0].shortName}</AttributeSpan> {skill.attributes[0].value}
             </Trait>
             <Trait>
-              <AttributeSpan>{skill.attributes[1]}</AttributeSpan> {attributes[skill.attributes[1]]}
+              <AttributeSpan>{skill.attributes[1].shortName}</AttributeSpan> {skill.attributes[1].value}
             </Trait>
             <Trait>
-              <AttributeSpan>{skill.attributes[2]}</AttributeSpan> {attributes[skill.attributes[2]]}
+              <AttributeSpan>{skill.attributes[2].shortName}</AttributeSpan> {skill.attributes[2].value}
             </Trait>
             <Trait>
-              Fertigkeitswert: {skillPoints}
+              Fertigkeitswert: {skill.value}
             </Trait>
           </Traits>
         </SkillBox>
         <ModificatorControl>
-          <input type="number" name="modificatorValue" id="modificatorValue" ref={difficultyRef} min={0} />
+          {/* <input type="number" name="modificatorValue" id="modificatorValue" ref={difficultyRef} min={0} />
           <select name="modificator" id="modificator" onChange={handleModificatorChange}>
             <option value="easier">Erleichtert</option>
             <option value="harder">Erschwert</option>
-          </select>
+          </select> */}
         </ModificatorControl>
         
         <ProbeResult result={result}/>
         { result &&
+        /*
           <>
             <p><strong>{result.type}</strong></p>
             <p>Du hast {result.rolls[0]}, {result.rolls[1]} und {result.rolls[2]} gewürfelt.</p>
             <p>Fertigkeitspunkte übrig: {result.pointsLeft}</p>
             <p>Qualitätsstufe: {result.qualtiyLevel}</p>
             <SecondaryButton onClick={handleReset}>Zurücksetzen</SecondaryButton>
-          </>
+          </> */
+          test
         }
         { !result &&
           <PrimaryButton onClick={handleRoll}>Würfeln</PrimaryButton>

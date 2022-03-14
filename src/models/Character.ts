@@ -33,9 +33,9 @@ export class Character {
     for (const id in SkillId) {
       const value = skillData[id]
       if(typeof value === "number") {
-        this.skills.push(new Skill(id, value))
+        this.skills.push(new Skill(id, this.attributes, value))
       } else {
-        this.skills.push(new Skill(id))
+        this.skills.push(new Skill(id, this.attributes))
       }
     }
   }
