@@ -1,3 +1,4 @@
+import { d } from "../game/dice"
 import { Attribute, AttributeId } from "./Attribute"
 
 export enum SkillId {
@@ -70,12 +71,26 @@ export enum SkillCategory {
   Handwerkstalente = "Handwerkstalente",
 }
 
+export enum SkillOutcome {
+  criticalFailure = "Kritischer Fehlschlag!",
+  criticalSuccess = "Kritischer Erfolg!",
+  success = "Erfolg!",
+  failure = "Fehlschlag!"
+}
+
+export type SkillProbeResult = {
+  outcome: SkillOutcome,
+  rolls: number[],
+  pointsLeft?: number,
+  qualityLevel?: number
+}
+
 export class Skill {
   id: SkillId
   name: string
   category: SkillCategory
   attributes: Attribute[] = []
-  value: Number
+  value: number
 
   constructor(id: string, attributes: Attribute[], value?: number) {
     this.id = SkillId[id as keyof typeof SkillId]
@@ -614,5 +629,51 @@ export class Skill {
         break
       }
     }
+  }
+
+  probeSkill(modificator: Number): SkillProbeResult {
+    let pointsLeft: number = this.value
+
+    console.log(modificator)
+  
+    // Roll dice
+    const rolls = [d(20), d(20), d(20)]
+
+    // Check patzer
+    let criticalFailure = rolls.filter(roll => roll === 20).length > 1
+    if (criticalFailure) {
+      return { outcome: SkillOutcome.criticalFailure, rolls: rolls}
+    }
+    
+    // Check perfect
+    let criticalSuccess = rolls.filter(roll => roll === 1). length > 1
+    if (criticalSuccess) {
+      return { outcome: SkillOutcome.criticalSuccess, rolls: rolls}
+    }
+  
+    // Compare rolls against attributes
+    for (let i = 0; i < rolls.length; i++) {
+      const roll = Number(rolls[i])
+      const attribute = Number(this.attributes[i].value)
+      const mod = Number(modificator)
+      if (roll > (attribute + mod)) {
+        pointsLeft -= (roll - (attribute + mod))
+      }
+    }
+  
+    if(pointsLeft >= 0) {
+      return { outcome: SkillOutcome.success, rolls: rolls, pointsLeft: pointsLeft, qualityLevel: Skill.getQualityLevel(pointsLeft)}
+    } else {
+      return { outcome: SkillOutcome.failure, rolls: rolls }
+    }
+  }
+  
+  static getQualityLevel(skillPointsLeft: number): number {
+    if (skillPointsLeft < 4) return 1
+    else if (skillPointsLeft < 7) return 2
+    else if (skillPointsLeft < 10) return 3
+    else if (skillPointsLeft < 13) return 4
+    else if (skillPointsLeft < 16) return 5
+    else return 6
   }
 }
