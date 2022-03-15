@@ -1,5 +1,3 @@
-import { DocumentSnapshot, DocumentData } from "firebase/firestore"
-
 export enum EnergyId {
   life = "lifePoints",
   astral = "astralPoints",
