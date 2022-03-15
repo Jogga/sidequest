@@ -1,6 +1,6 @@
 import { DocumentData, QueryDocumentSnapshot, DocumentSnapshot } from "firebase/firestore"
 import { Attribute, AttributeId } from "./Attribute"
-import { Energy } from "./Energy"
+import { Energy, EnergyId } from "./Energy"
 import { Skill, SkillId } from "./Skill"
 
 export class Character {
@@ -18,10 +18,21 @@ export class Character {
     this.playerId = doc.get("player")
     this.name = doc.get("name")
     this.id = doc.id
-    this.life = new Energy("Lebenspunkte", doc.get("lifePoints"))
     
-    const attributeData = doc.get("attributes")
+    const lifePointData = doc.get(EnergyId.life)
+    this.life = new Energy(EnergyId.life, lifePointData)
 
+    const astralPointData = doc.get(EnergyId.astral)
+    if (astralPointData) {
+      this.astral = new Energy(EnergyId.astral, astralPointData)
+    }
+
+    const karmaPointData = doc.get(EnergyId.karma)
+    if (karmaPointData) {
+      this.karma = new Energy(EnergyId.karma, karmaPointData)
+    }
+
+    const attributeData = doc.get("attributes")
     for(const id in AttributeId) {
       const value = attributeData[id]
       if(typeof value === "number") {

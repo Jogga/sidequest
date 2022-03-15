@@ -1,13 +1,35 @@
 import { DocumentSnapshot, DocumentData } from "firebase/firestore"
 
+export enum EnergyId {
+  life = "lifePoints",
+  astral = "astralPoints",
+  karma = "karmaPoints"
+}
+
 export class Energy {
+  id: EnergyId
   name: string
   currentValue: number
   maximumValue: number
 
-  constructor(name: string, doc: DocumentSnapshot<DocumentData>) {
-    this.name = name
-    this.currentValue = 10 // doc.get("current")
-    this.maximumValue = 20 // doc.get('maximum')
+  constructor(id: EnergyId, doc: any) {
+    this.id = id
+    this.currentValue = doc.current
+    this.maximumValue = doc.maximum
+
+    switch(id) {
+      case(EnergyId.life): {
+        this.name = "Lebenspunkte"
+        break
+      }
+      case(EnergyId.astral): {
+        this.name = "Astralpunkte"
+        break
+      }
+      case(EnergyId.karma): {
+        this.name = "Karmapunkte"
+        break
+      }
+    }
   }
 }

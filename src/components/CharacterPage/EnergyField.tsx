@@ -1,5 +1,6 @@
 import React, { useRef } from 'react'
 import styled from 'styled-components'
+import { Energy } from '../../models/Energy'
 
 const EnergyContainer = styled.div`
   display: flex;
@@ -44,33 +45,43 @@ const ValueInputContainer = styled.div`
   gap: 8px
 `
 
-export default function Energy(props) {
-  const valueInputRef = useRef()
+type EnergyFieldProps = {
+  energy: Energy,
+  editing: Boolean,
+  onToggleEdit: Function,
+  onApply: Function,
+}
 
-  function handleEditButtonClick() {
-    props.onEdit(props.fieldId, true)
+export default function EnergyField(props: EnergyFieldProps) {
+  let energy: Energy = props.energy
+  const valueInputRef = useRef<HTMLInputElement>(null)
+
+  function handleEditToggle() {
+    props.onToggleEdit()
   }
 
-  function handleCancelButtonClick() {
-    props.onEdit(props.fieldId, false)
-  }
   function handleApplyButtonClick() {
-    props.onUpdate(props.fieldId, valueInputRef.current.value)
+    if(!valueInputRef.current) {
+      console.log("input ref is null")
+      return
+    } else {
+      props.onApply(energy.id, Number(valueInputRef?.current.value))
+    }
   }
   return (
     <EnergyContainer>
-      <EnergyTitle>{props.label}</EnergyTitle>
+      <EnergyTitle>{energy.name}</EnergyTitle>
       {!props.editing        
         ? <>
             <Value>
-              <CurrentValue>{props.currentEnergy}</CurrentValue>
-              <MaxValue> / {props.energy["maximum"]}</MaxValue>
+              <CurrentValue>{energy.currentValue}</CurrentValue>
+              <MaxValue> / {energy.maximumValue}</MaxValue>
             </Value>
-            <button onClick={handleEditButtonClick}>Edit</button>
+            <button onClick={handleEditToggle}>Edit</button>
           </>
         : <ValueInputContainer>
-            <ValueInput type="number" min="0" defaultValue={props.currentEnergy} max={props.energy["maximum"]} ref={valueInputRef}/>
-            <button onClick={handleCancelButtonClick}>Cancel</button>
+            <ValueInput type="number" min="0" defaultValue={energy.currentValue} max={energy.maximumValue} ref={valueInputRef}/>
+            <button onClick={handleEditToggle}>Cancel</button>
             <button onClick={handleApplyButtonClick}>Apply</button>
           </ValueInputContainer>   
       }
