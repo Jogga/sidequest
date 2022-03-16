@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Header from '../Header'
 import { db } from '../../firebase'
 import { doc, getDoc, updateDoc } from "firebase/firestore"
@@ -139,6 +139,7 @@ export default function CharacterPage() {
       { character && 
         <>
           <h1>{ character.name }</h1>
+          <Link to="update">Update character</Link>
           <AttributeList attributes={character.attributes} />
           <EnergyField 
             energy={character.life}

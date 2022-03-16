@@ -4,6 +4,7 @@ import { AuthProvider } from "../contexts/AuthContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom" 
 import Profile from "./Profile";
 import CharacterPage from "./CharacterPage";
+import CharacterUpdatePage from "./CharacterUpdatePage";
 import CharactersPage from "./CharactersPage";
 import Login from "./Login";
 import PrivateRoute from "./PrivateRoute";
@@ -53,6 +54,12 @@ function App() {
           <Route path="characters/:characterId" element={
             <PrivateRoute>
               <CharacterPage />
+            </PrivateRoute>
+            }
+          />
+          <Route path="characters/:characterId/update" element={
+            <PrivateRoute>
+              <CharacterUpdatePage />
             </PrivateRoute>
             }
           />
