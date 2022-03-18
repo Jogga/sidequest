@@ -94,7 +94,7 @@ export default function CharacterUpdatePage() {
   const [character, setCharacterDoc] = useState<CharacterDoc | null>(null)
   const [error, setError] = useState<string>()
   const [loading, setLoading] = useState<boolean>(false)
-  const [updated, setUpdated] = useState<boolean>(true)
+  const [updated, setUpdated] = useState<boolean>(false)
 
   function handleFile(e: any) {
     setUpdated(false)
