@@ -69,6 +69,12 @@ function App() {
             </PrivateRoute>
             }
           />
+          <Route path="parties/:partyId/:characterId/update" element={
+            <PrivateRoute>
+              <CharacterUpdatePage />
+            </PrivateRoute>
+            }
+          />
           <Route path="/signup" element={<Signup />}/>
           <Route path="/login" element={<Login />}/>
           <Route path="/forgot-password" element={<ForgotPassword />}/>

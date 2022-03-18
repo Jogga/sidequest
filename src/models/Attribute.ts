@@ -6,7 +6,7 @@ export enum AttributeId {
   ATTR_5 = "ATTR_5",
   ATTR_6 = "ATTR_6",
   ATTR_7 = "ATTR_7",
-  ATTR_8 = "ATTR_8",
+  ATTR_8 = "ATTR_8"
 }
 
 export class Attribute {
@@ -36,13 +36,13 @@ export class Attribute {
         break
       }
       case AttributeId.ATTR_2: {
-        this.name = "Intuition"
-        this.shortName = "IN"
+        this.name = "Klugheit"
+        this.shortName = "KL"
         break
       }
       case AttributeId.ATTR_3: {
-        this.name = "Klugheit"
-        this.shortName = "KL"
+        this.name = "Intuition"
+        this.shortName = "IN"
         break
       }
       case AttributeId.ATTR_4: {
@@ -51,23 +51,23 @@ export class Attribute {
         break
       }
       case AttributeId.ATTR_5: {
-        this.name = "Konstitution"
-        this.shortName = "KO"
+        this.name = "Fingerfertigkeit"
+        this.shortName = "FF"
         break
       }
       case AttributeId.ATTR_6: {
-        this.name = "Koerperkraft"
-        this.shortName = "KK"
-        break
-      }
-      case AttributeId.ATTR_7: {
         this.name = "Gewandheit"
         this.shortName = "GE"
         break
       }
+      case AttributeId.ATTR_7: {
+        this.name = "Konstitution"
+        this.shortName = "KO"
+        break
+      }
       case AttributeId.ATTR_8: {
-        this.name = "Fingerfertigkeit"
-        this.shortName = "FF"
+        this.name = "Koerperkraft"
+        this.shortName = "KK"
         break
       }
     }
